@@ -1,4 +1,4 @@
-import CreatePortfolioForm from "../../components/Forms/CreatePortfolioForm";
+import CreatePortfolioForm from "../../components/Forms/Portfolio/CreatePortfolioForm";
 
 function CreatePortfolioRoute() {
 	return (
