@@ -1,15 +1,24 @@
-import axios from "axios";
-import { useQuery } from "react-query";
+import { useContext } from "react";
+
+import { AuthContext } from "../../../contexts/AuthContext";
+import { loginWithGithub } from "../../../services/auth.service";
 
 function GitHubOAuthButton() {
+	const { setUser } = useContext(AuthContext);
+
 	const handleClick = async () => {
-		alert("clicked");
+		try {
+			const res = await loginWithGithub();
 
-		const res = await axios(
-			"https://developers-portfolios-api.onrender.com/api/v1/auth/github"
-		);
+			if (res.status === 200) {
+				const token = res.data.token;
+				const user = { ...res.data.user, token };
 
-		console.log(res);
+				setUser(user);
+			}
+		} catch (error) {
+			console.error("An error occurred while fetching GitHub auth:", error);
+		}
 	};
 
 	return (

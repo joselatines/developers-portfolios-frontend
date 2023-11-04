@@ -1,11 +1,17 @@
-import MOCK_DATA from "../../MOCK_DATA.json";
+// import MOCK_DATA from "../../MOCK_DATA.json";
+import { IPortfolio } from "../../interfaces/portfolio.interface";
+
 import PortfolioCard from "./PortfolioCard";
 
-function PortfoliosSection() {
+interface Props {
+	portfolios: IPortfolio[]
+}
+
+function PortfoliosSection({ portfolios }: Props) {
 	return (
 		<section>
-			{MOCK_DATA.portfolios.map((p: any) => (
-				<PortfolioCard key={p.id} data={p} />
+			{portfolios.map((p) => (
+				<PortfolioCard key={p.id} portfolio={p} />
 			))}
 		</section>
 	);

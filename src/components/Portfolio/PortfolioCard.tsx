@@ -1,8 +1,13 @@
 import Popup from "reactjs-popup";
 import PortfolioModal from "./PortfolioModal";
+import { IPortfolio } from "../../interfaces/portfolio.interface";
 
-function PortfolioCard({ data }: any) {
-	const { images, website_link, title, description, type, User } = data;
+interface Props {
+	portfolio: IPortfolio
+}
+
+function PortfolioCard({ portfolio }: Props) {
+	const { images, website_link, title, description, type, User } = portfolio;
 
 	return (
 		<article className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md m-4">
@@ -24,7 +29,7 @@ function PortfolioCard({ data }: any) {
 			<span>3/10</span>
 
 			<Popup trigger={<button className="button"> Open Modal </button>} modal>
-				<PortfolioModal data={data} />
+				<PortfolioModal data={portfolio} />
 			</Popup>
 		</article>
 	);
