@@ -9,4 +9,5 @@ export interface IPortfolio {
 	description: string;
 	type: string;
 	User: User;
+	rating: number
 }

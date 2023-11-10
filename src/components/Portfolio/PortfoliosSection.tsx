@@ -9,7 +9,7 @@ interface Props {
 
 function PortfoliosSection({ portfolios }: Props) {
 	return (
-		<section>
+		<section className="flex gap-5 flex-wrap">
 			{portfolios.map((p) => (
 				<PortfolioCard key={p.id} portfolio={p} />
 			))}

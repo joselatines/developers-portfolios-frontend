@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import React from "react";
 import "reactjs-popup/dist/index.css";
 import "./index.css";
-import ErrorPage from "./ErrorPage";
+import "./App.css"
 import MeRoute from "./routes/me";
 import HomeRoute from "./routes/home";
 import Root from "./routes/root";

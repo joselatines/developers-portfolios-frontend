@@ -11,9 +11,9 @@ function Navigation() {
 	}, [user]);
 
 	return (
-		<div className="flex flex-wrap bg-slate-500">
-			<nav>
-				<ul>
+		<div className="flex flex-wrap justify-between bg-slate-950 text-white p-12 py-4">
+			<nav className="flex items-center">
+				<ul className="flex gap-2" >
 					<li>
 						<Link to="/me">Me</Link>
 					</li>

@@ -1,36 +1,44 @@
 import Popup from "reactjs-popup";
 import PortfolioModal from "./PortfolioModal";
 import { IPortfolio } from "../../interfaces/portfolio.interface";
+import { Tag } from "@chakra-ui/react";
 
 interface Props {
 	portfolio: IPortfolio
 }
 
 function PortfolioCard({ portfolio }: Props) {
-	const { images, website_link, title, description, type, User } = portfolio;
-
+	const { images, website_link, title, description, type, User , rating} = portfolio;
+	let color = rating > 5 ? 'teal': 'red'; // 7: green | 4: red
+	color = (rating >= 5 && rating <= 7) ? 'orange' : color;  // 5: orange
+	
 	return (
-		<article className="max-w-md mx-auto bg-white rounded-xl overflow-hidden shadow-md m-4">
-			<img
-				className="w-full h-64 object-cover"
+		<article className="max-w-md mx-auto overflow-hidden">
+			<Popup trigger={<img
+				className="w-full h-64 object-cover cursor-pointer"
 				src={images[0]}
 				alt="Portfolio"
-			/>
-			<div>
-				<h4>{title}</h4>
+			/>} modal>
+			<PortfolioModal data={portfolio} />
+			</Popup>
+			
+			<section className="p-1 flex items-center justify-between">
+				<article>
+				<h4 className="font-medium text-lg">{title}</h4>
 				<a
-					href={`https://github.com/${User.github}}`}
+					href={`https://github.com/${User.github}`}
 					target="_blank"
 					rel="noopener noreferrer"
+					className="opacity-95"
 				>
 					{User.username}
 				</a>
-			</div>
-			<span>3/10</span>
+				</article>
 
-			<Popup trigger={<button className="button"> Open Modal </button>} modal>
-				<PortfolioModal data={portfolio} />
-			</Popup>
+			<Tag  colorScheme={color}>{rating}/10</Tag>
+			</section>
+	
+			
 		</article>
 	);
 }
