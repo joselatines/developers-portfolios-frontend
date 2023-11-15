@@ -1,5 +1,6 @@
 import { BsGithub } from "react-icons/bs";
 import { AiOutlineLink } from "react-icons/ai";
+import { FaEye } from "react-icons/fa";
 import RatePortfolioForm from "../Forms/RatePortfolioForm";
 import CommentsSection from "../shared/Comments/CommentsSection";
 import { Button } from "@chakra-ui/react";
@@ -10,11 +11,16 @@ function PortfolioModal({ data }: any) {
     const [showComments, setShowComments] = useState(false);
 
     return (
-        <article className="grid grid-cols-2 max-h-80vh">
+        <article className="md:grid grid-cols-2 h-[90vh] overflow-auto">
             <section className="p-8">
                 <h2 className="text-5xl font-bold">{title}</h2>
                 <p className="mb-4 mt-5">{description}</p>
-                <ul className="flex gap-2 wrap">
+                <img
+                    className="w-full h-64 object-cover h-[100%] md:hidden"
+                    src={images[0]}
+                    alt="Portfolio"
+                />
+                <ul className="flex gap-2 wrap my-5">
                     <li>
                         <a href="#"><AiOutlineLink size={32}/></a>
                     </li>
@@ -22,25 +28,25 @@ function PortfolioModal({ data }: any) {
                         <a href="#"><BsGithub size={32} /></a>
                     </li>
                 </ul>
-                <section className="mt-10">
+                <section className="mt-7 flex flex-col">
                     <RatePortfolioForm />
-                    <Button onClick={() => setShowComments(prev => !prev)} colorScheme="white" variant='outline'>
-                        Show comments
+               
+                    <Button className="mb-6 mt-8 center flex gap-1" colorScheme='teal'  onClick={() => setShowComments(prev => !prev)}>
+                    {showComments ? <><FaEye/> Hide comments</> : <><FaEye/> Show comments</>} 
                     </Button>
-                    <div className=" ">
+                    <div className={showComments ? 'h-56 overflow-auto': "hidden"}>
                         <CommentsSection/>
                     </div>
                 </section>
             </section>
-            <section>
+        
                 <img
-                    className="w-full h-64 object-cover h-[100%]"
+                    className={`w-full h-64 object-cover h-[100%] hidden md:block`}
                     src={images[0]}
                     alt="Portfolio"
                 />
-            </section>
         </article>
     );
 }
 
-export default PortfolioModal;
+export default PortfolioModal

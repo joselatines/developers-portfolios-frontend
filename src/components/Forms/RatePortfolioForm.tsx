@@ -10,16 +10,21 @@ function RatePortfolioForm() {
 
 	return (
 		<form className="grid">
-			<Textarea placeholder='Here is a sample placeholder' />
+			<span className="text-xl font-bold mb-2">Give a comment</span>
+			<Textarea placeholder='Here is a sample placeholder' className="mb-1" />
 
-			<input type="range" 	
+			<section className="">
+				<input type="range" 
+	
 				onChange={handleRateChange}
 				min={1}
 				max={10}
 				step={1}
-				value={rateNumber}className="range range-xs" /> 
+				value={rateNumber}className="range range-xs w-[100%]" /> 
+				
 			
 			<Button>Give {rateNumber} <AiOutlineStar/> </Button>
+				</section>
 		</form>
 	);
 }
