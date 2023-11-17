@@ -7,7 +7,7 @@ import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 
 function PortfolioModal({ data }: any) {
-    const { images, title, description, User } = data;
+    const { images, title, description, User,  github_link, website_link} = data;
     const [showComments, setShowComments] = useState(false);
 
     return (
@@ -22,11 +22,12 @@ function PortfolioModal({ data }: any) {
                 />
                 <ul className="flex gap-2 wrap my-5">
                     <li>
-                        <a href="#"><AiOutlineLink size={32}/></a>
+                        <a href={website_link} target="_blank" ><AiOutlineLink size={32}/></a>
                     </li>
-                    <li>
-                        <a href="#"><BsGithub size={32} /></a>
-                    </li>
+                    {github_link &&   <li>
+                        <a target="_blank" href={github_link}><BsGithub size={32} /></a>
+                    </li>}
+                  
                 </ul>
                 <section className="mt-7 flex flex-col">
                     <RatePortfolioForm />

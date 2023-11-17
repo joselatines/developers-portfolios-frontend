@@ -5,6 +5,7 @@ export interface IPortfolio {
 	images: string[];
 	created_by: string;
 	website_link: string;
+	github_link: string;
 	title: string;
 	description: string;
 	type: string;

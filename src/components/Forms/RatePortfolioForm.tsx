@@ -23,7 +23,7 @@ function RatePortfolioForm() {
 				value={rateNumber}className="range range-xs w-[100%]" /> 
 				
 			
-			<Button>Give {rateNumber} <AiOutlineStar/> </Button>
+			<Button className="grid items-center">Rate  {rateNumber} <AiOutlineStar/> </Button>
 				</section>
 		</form>
 	);

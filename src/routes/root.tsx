@@ -2,10 +2,14 @@ import { Outlet } from "react-router-dom";
 import Navigation from "../components/Navigation";
 
 export default function Root() {
+	const links = [{label: '', url: '' }]
 	return (
 		<>
-			<Navigation />
-			<Outlet />
+			<Navigation links={links} />
+			<main className="pt-20">
+
+			<Outlet  />
+			</main>
 		</>
 	);
 }
