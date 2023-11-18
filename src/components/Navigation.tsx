@@ -15,7 +15,6 @@ import {
   useColorModeValue,
   Stack,
 } from '@chakra-ui/react'
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext, useEffect } from 'react'
 import GitHubOAuthButton from './shared/Buttons/GithubOAuthButton'
@@ -40,7 +39,7 @@ export default function Navigation({links}: Props) {
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            //icon={isOpen ? '<CloseIcon />' : '<HamburgerIcon />'}
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
@@ -71,13 +70,14 @@ export default function Navigation({links}: Props) {
 			  
 			  <Link to="/me">
                 <MenuItem >Me</MenuItem>
+                
 				</Link>
            
                 <MenuDivider />
                 <MenuItem>Log out</MenuItem>
               </MenuList>
             </Menu>
-          </Flex> : <GitHubOAuthButton />}
+          </Flex> : <GitHubOAuthButton/>}
           
         </Flex>
 
@@ -105,6 +105,7 @@ function LinksComponent({links}: {links: LinkElement[]}) {
 	return (<>
 	 {links.map((link) => (
                  <Box
+                 key={link.url}
 				 as="a"
 				 px={2}
 				 py={1}

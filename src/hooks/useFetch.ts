@@ -13,6 +13,7 @@ export const useFetch = <T extends unknown>(url: string, options?: RequestInit):
       try {
         const res = await fetch(url, options);
         const json = await res.json();
+        console.log(res)
         setResponse({ data: json });
       } catch (error) {
         setResponse({ error });

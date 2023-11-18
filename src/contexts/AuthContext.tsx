@@ -32,7 +32,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		token: "example_token",
 		profilePic: "https://media.licdn.com/dms/image/D4E03AQGWw4A4tGQE8w/profile-displayphoto-shrink_800_800/0/1676919170139?e=2147483647&v=beta&t=jkJl32RI3U7qFNxUTlKLTWBFdy6DzZz0al8cLt0goEs"
 	};
-	const [user, setUser] = useState<IUser | null>(fakeUser);
+	const [user, setUser] = useState<IUser | null>(null);
 
 	return (
 		<AuthContext.Provider value={{ user, setUser }}>

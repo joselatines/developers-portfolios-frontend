@@ -6,8 +6,8 @@ import JSON_DATA from '../MOCK_DATA.json'
 function HomeRoute() {
 	const { data, error } = useFetch<any>(`${API_URL}/portfolios`);
 
-	// if (error) return <div>Error: {error.message}</div>;
-	// if (!data) return <div>Loading...</div>;
+	if (error) return <div>Error: {error.message}</div>;
+	if (!data) return <div>Loading...</div>;
 
 	console.log(data);
 	return (
