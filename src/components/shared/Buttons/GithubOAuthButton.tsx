@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { API_URL } from "../../../CONST";
 import axios from "axios";
 import { ProfilePassport } from "../../../interfaces/oAuth.interface";
@@ -9,13 +9,13 @@ import { ProfilePassport } from "../../../interfaces/oAuth.interface";
 function GitHubOAuthButton() {
 	const { setUser } = useContext(AuthContext);
 	const navigate = useNavigate();
+	const toast = useToast();
 
 	const fetchAuthUser = async () => {
 		try {
-			const response = await axios.get(
-				`${API_URL}/users/me`,
-				{ withCredentials: true }
-			);
+			const response = await axios.get(`${API_URL}/users/me`, {
+				withCredentials: true,
+			});
 
 			const user: Required<ProfilePassport> = response.data.data;
 
@@ -30,10 +30,11 @@ function GitHubOAuthButton() {
 
 			setUser(userParsed);
 			navigate("/");
+			toast({ title: `Logged successfully`, status: "success" });
 		} catch (err) {
-			console.log("Not properly authenticated", err);
+			console.error("Not properly authenticated", err);
 			setUser(null);
-			navigate("/login/error");
+			toast({ title: `Not properly authenticated`, status: "error" });
 		}
 	};
 
