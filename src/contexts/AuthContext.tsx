@@ -5,8 +5,8 @@ interface IUser {
 	username: string;
 	email: string;
 	role: string;
-	token: string;
-	profilePic: string;		
+	profilePic: string;
+	provider: string | "github" | "google" | "twitter";
 }
 
 interface IAuthContext {
@@ -29,8 +29,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		username: "John",
 		email: "johndoe@gmail.com",
 		role: "user",
-		token: "example_token",
-		profilePic: "https://media.licdn.com/dms/image/D4E03AQGWw4A4tGQE8w/profile-displayphoto-shrink_800_800/0/1676919170139?e=2147483647&v=beta&t=jkJl32RI3U7qFNxUTlKLTWBFdy6DzZz0al8cLt0goEs"
+
+		profilePic:
+			"https://media.licdn.com/dms/image/D4E03AQGWw4A4tGQE8w/profile-displayphoto-shrink_800_800/0/1676919170139?e=2147483647&v=beta&t=jkJl32RI3U7qFNxUTlKLTWBFdy6DzZz0al8cLt0goEs",
 	};
 	const [user, setUser] = useState<IUser | null>(null);
 
