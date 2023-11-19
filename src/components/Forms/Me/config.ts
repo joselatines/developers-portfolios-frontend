@@ -2,16 +2,16 @@ import * as Yup from "yup";
 
 export const formikConfig = {
 	validationSchema: Yup.object({
-		username: Yup.string(),
+		githubUsername: Yup.string(),
 		profilePic: Yup.string(),
 	}),
 
 	fields: [
 		{
-			name: "username",
+			name: "githubUsername",
 			label: "Github username",
 			helperText: "Enter your GITHUB username",
-			type: "username",
+			type: "githubUsername",
 		},
 		{
 			name: "profilePic",

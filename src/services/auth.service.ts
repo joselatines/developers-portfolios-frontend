@@ -6,7 +6,7 @@ interface LoginCredentials {
 	password: string;
 }
 interface SignUpCredentials extends LoginCredentials {
-	username: string;
+	githubUsername: string;
 }
 
 export const loginWithGithub = async () => {

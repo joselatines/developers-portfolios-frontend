@@ -19,21 +19,21 @@ function MeRoute() {
 	if (error?.message) return <ErrorHandler errorMessage={error.message} />;
 	if (!data) return <LoaderHandler />;
 
-	const { username, email, profilePic } = data.data;
+	const { githubUsername, email, profilePic } = data.data;
 
 	return (
 		<section className="grid">
 			<Avatar
-				name={username}
+				name={githubUsername}
 				size="2xl"
 				src={profilePic || DEFAULT_PROFILE_PIC}
 			/>
-			<Heading>{username}</Heading>
+			<Heading>{githubUsername}</Heading>
 			<span className="text-lg font-semibold mb-10">{email}</span>
 
 			<EditMeProfileForm
 				refreshParentComponent={setRefresh}
-				initialValues={{ username, profilePic }}
+				initialValues={{ githubUsername, profilePic }}
 				userId={data.data.id}
 			/>
 

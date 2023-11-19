@@ -31,7 +31,7 @@ function PortfolioCard({ portfolio }: Props) {
 					rel="noopener noreferrer"
 					className="opacity-95"
 				>
-					{User.username}
+					{User.githubUsername}
 				</a>
 				</article>
 

@@ -1,6 +1,6 @@
 interface IComment {
     user: {
-        username: string;
+        githubUsername: string;
         profileUrl: string;
         profilePic: string;
     }
@@ -27,7 +27,7 @@ function Comment({data}: Props) {
                 "/>
 
             <h3 className="font-bold">
-                {user.username}
+                {user.githubUsername}
             </h3>
         </a>
 

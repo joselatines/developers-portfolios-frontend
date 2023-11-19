@@ -3,12 +3,10 @@ import { useFormik } from "formik";
 import { formikConfig } from "./config";
 import InputFields from "../InputFields";
 import { editUser } from "../../../services/users.service";
-import { useContext } from "react";
-import { AuthContext } from "../../../contexts/AuthContext";
 
 interface Props {
 	refreshParentComponent: (prev: any) => void;
-	initialValues: { email?: string; username?: string; profilePic?: string };
+	initialValues: { email?: string; githubUsername?: string; profilePic?: string };
 	userId: string;
 }
 

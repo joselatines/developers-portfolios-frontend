@@ -4,7 +4,7 @@ const USER_KEY = "user";
 
 interface IUserContext {
 	id: string;
-	username: string;
+	githubUsername: string;
 	email: string;
 	role: string;
 	token: string;
@@ -40,7 +40,7 @@ export const saveUserToLocalStorage = (user: IUserContext) =>
 const AuthProvider = ({ children }: AuthProviderProps) => {
 	/* const fakeUser = {
 		id: "72e19fa5-0b59-46a0-b7a9-03193dab5853",
-		username: "John",
+		githubUsername: "John",
 		email: "johndoe@gmail.com",
 		role: "user",
 		token: "example token",

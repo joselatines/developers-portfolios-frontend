@@ -23,7 +23,7 @@ function SignUpForm() {
 			const credentials = {
 				email: "user@gmail.com",
 				password: "123",
-				username: "puto user",
+				githubUsername: "puto user",
 			};
 			try {
 				const response = await signUpWithEmail(credentials);
