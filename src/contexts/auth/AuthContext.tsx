@@ -1,41 +1,12 @@
-import { createContext, ReactNode, useState } from "react";
-
-const USER_KEY = "user";
-
-interface IUserContext {
-	id: string;
-	githubUsername: string;
-	email: string;
-	role: string;
-	token: string;
-	profilePic: string;
-	provider: string | "github" | "google" | "twitter";
-}
-
-interface IAuthContext {
-	user: IUserContext | null;
-	setUser: (value: IUserContext | null) => void;
-}
-
-interface AuthProviderProps {
-	children: ReactNode;
-}
+import { createContext, useState } from "react";
+import { AuthProviderProps, IAuthContext, IUserContext } from "./types";
+import { getUserFromLocalStorage, saveUserToLocalStorage } from "./helper";
+import { USER_KEY_LOCAL_STORAGE } from "../../CONST";
 
 const AuthContext = createContext<IAuthContext>({
 	user: null,
 	setUser: () => {},
 });
-
-export const getUserFromLocalStorage = (): IUserContext | null => {
-	const userString = localStorage.getItem(USER_KEY);
-	if (userString) {
-		return JSON.parse(userString);
-	}
-	return null;
-};
-
-export const saveUserToLocalStorage = (user: IUserContext) =>
-	localStorage.setItem(USER_KEY, JSON.stringify(user));
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
 	/* const fakeUser = {
@@ -56,7 +27,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		if (value) {
 			saveUserToLocalStorage(value);
 		} else {
-			localStorage.removeItem("user");
+			localStorage.removeItem(USER_KEY_LOCAL_STORAGE);
 		}
 		setUser(value);
 	};

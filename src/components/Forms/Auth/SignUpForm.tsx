@@ -1,16 +1,12 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { useContext } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { signUpConfig } from "./config";
 import InputFields from "../InputFields";
 import { signUpWithEmail } from "../../../services/auth.service";
 
-import { AuthContext } from "../../../contexts/AuthContext";
-
 function SignUpForm() {
 	const { validationSchema, initialValues, fields } = signUpConfig;
-	const { setUser } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const toast = useToast();
 
@@ -20,13 +16,13 @@ function SignUpForm() {
 
 		onSubmit: async values => {
 			// alert(JSON.stringify(values, null, 2));
-			const credentials = {
+			/* const credentials = {
 				email: "user@gmail.com",
 				password: "123",
 				githubUsername: "puto user",
-			};
+			}; */
 			try {
-				const response = await signUpWithEmail(credentials);
+				const response = await signUpWithEmail(values);
 
 				if (!response.data.success)
 					return toast({

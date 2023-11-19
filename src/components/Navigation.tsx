@@ -11,12 +11,11 @@ import {
 	MenuItem,
 	MenuDivider,
 	useDisclosure,
-	useColorModeValue,
 	Stack,
 } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/auth/AuthContext";
 import { DEFAULT_PROFILE_PIC } from "../CONST";
 
 interface Props {
@@ -39,7 +38,7 @@ export default function Navigation({ links }: Props) {
 				position={"fixed"}
 				color={"white"}
 				width={"100vw"}
-				bg={useColorModeValue("gray.900", "gray.100")}
+				bg={"gray.900"}
 				px={5}
 			>
 				<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
@@ -72,7 +71,10 @@ export default function Navigation({ links }: Props) {
 									cursor={"pointer"}
 									minW={0}
 								>
-									<Avatar size={"sm"} src={user.profilePic || DEFAULT_PROFILE_PIC} />
+									<Avatar
+										size={"sm"}
+										src={user.profilePic || DEFAULT_PROFILE_PIC}
+									/>
 								</MenuButton>
 
 								<MenuList>
@@ -130,7 +132,7 @@ function LinksComponent({ links }: { links: LinkElement[] }) {
 					rounded={"md"}
 					_hover={{
 						textDecoration: "none",
-						bg: useColorModeValue("gray.700", "gray.200"),
+						bg: "gray.700",
 					}}
 					href={link.url}
 				>

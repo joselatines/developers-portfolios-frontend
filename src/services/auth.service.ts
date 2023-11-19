@@ -10,7 +10,7 @@ interface SignUpCredentials extends LoginCredentials {
 }
 
 export const loginWithGithub = async () => {
-	var opts = {
+	const opts = {
 		headers: {
 			mode: "cors",
 		},

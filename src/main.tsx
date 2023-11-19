@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import React from "react";
 import "reactjs-popup/dist/index.css";
 import "./index.css";
-import "./App.css"
+import "./App.css";
 import MeRoute from "./routes/me";
 import HomeRoute from "./routes/home";
 import Root from "./routes/root";
@@ -12,7 +12,7 @@ import CreatePortfolioRoute from "./routes/portfolios/create";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import LoginRoute from "./routes/auth/login";
 import PortfoliosRoute from "./routes/portfolios";
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/auth/AuthContext";
 import SignUpRoute from "./routes/auth/signup";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

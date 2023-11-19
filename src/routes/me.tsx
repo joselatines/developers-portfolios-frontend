@@ -8,7 +8,7 @@ import LoaderHandler from "../components/shared/Loader";
 import { Link } from "react-router-dom";
 
 function MeRoute() {
-	const { data, error, refetch } = useFetchWithJWT<any>(`${API_URL}/users/me`);
+	const { data, error, refetch } = useFetchWithJWT(`${API_URL}/users/me`);
 	const [refresh, setRefresh] = useState(0);
 
 	useEffect(() => {

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { loginConfig } from "./config";
 import InputFields from "../InputFields";
 import { loginWithEmail } from "../../../services/auth.service";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 
 function LoginForm() {
 	const { validationSchema, initialValues, fields } = loginConfig;
@@ -19,12 +19,12 @@ function LoginForm() {
 
 		onSubmit: async values => {
 			// alert(JSON.stringify(values, null, 2));
-			const credentials = {
+			/* const credentials = {
 				email: "user@gmail.com",
 				password: "123",
-			};
+			}; */
 			try {
-				const response = await loginWithEmail(credentials);
+				const response = await loginWithEmail(values);
 
 				if (!response.data.success)
 					return toast({
