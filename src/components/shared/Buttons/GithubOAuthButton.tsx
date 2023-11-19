@@ -30,11 +30,11 @@ function GitHubOAuthButton() {
 
 			setUser(userParsed);
 			navigate("/");
-			toast({ title: `Logged successfully`, status: "success" });
+			toast({ title: `Logged successfully`, status: 'success' });
 		} catch (err) {
 			console.error("Not properly authenticated", err);
 			setUser(null);
-			toast({ title: `Not properly authenticated`, status: "error" });
+			toast({ title: `Not properly authenticated` , status: "error"});
 		}
 	};
 

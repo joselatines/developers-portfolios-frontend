@@ -13,6 +13,7 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import LoginRoute from "./routes/auth/login";
 import PortfoliosRoute from "./routes/portfolios";
 import { AuthProvider } from "./contexts/AuthContext";
+import SignUpRoute from "./routes/auth/signup";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
@@ -32,7 +33,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 								/>
 							</Route>
 
-							<Route element={<LoginRoute />} path="/login" />
+							<Route element={<LoginRoute />} path="/auth/login" />
+							<Route element={<SignUpRoute />} path="/auth/signup" />
 						</Route>
 					</Routes>
 				</Router>
