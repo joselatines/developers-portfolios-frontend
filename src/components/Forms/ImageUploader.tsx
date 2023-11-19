@@ -1,4 +1,7 @@
+import { Button, Text } from "@chakra-ui/react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
+import { MdDelete } from "react-icons/md";
+import { GrUpdate } from "react-icons/gr";
 
 interface Props {
 	images: ImageListType;
@@ -10,13 +13,17 @@ export function ImageUploader({ images, setImages, maxNumber = 10 }: Props) {
 	// 	const [images, setImages] = useState([]);
 
 	const onChange = (imageList: ImageListType, addUpdateIndex: any) => {
-    // data for submit
-    console.log(imageList, addUpdateIndex);
-    setImages(imageList);
-  };
+		// data for submit
+		console.log(imageList, addUpdateIndex);
+		setImages(imageList);
+	};
 
 	return (
 		<div className="App">
+			<Text fontWeight={"medium"} fontSize={"md"} marginBottom={2}>
+				Thumbnails
+			</Text>
+
 			<ImageUploading
 				multiple
 				value={images}
@@ -33,30 +40,51 @@ export function ImageUploader({ images, setImages, maxNumber = 10 }: Props) {
 					isDragging,
 					dragProps,
 				}) => (
-					// write your building UI
 					<div className="upload__image-wrapper">
-						<button
-							style={isDragging ? { color: "red" } : undefined}
-							onClick={onImageUpload}
-							{...dragProps}
-						>
-							Click or Drop here
-						</button>
-						&nbsp;
-						<button onClick={onImageRemoveAll}>Remove all images</button>
-						{imageList.map((image, index) => (
-							<div key={index} className="image-item">
-								<img
-									src={image["data_url"]}
-									alt={image.file?.name}
-									width="100"
-								/>
-								<div className="image-item__btn-wrapper">
-									<button onClick={() => onImageUpdate(index)}>Update</button>
-									<button onClick={() => onImageRemove(index)}>Remove</button>
+						<div className="flex gap-3">
+							<Button
+								style={isDragging ? { color: "red" } : undefined}
+								onClick={onImageUpload}
+								{...dragProps}
+							>
+								Click or Drop here
+							</Button>
+							{images.length > 1 && (
+								<Button colorScheme="red" onClick={onImageRemoveAll}>
+									Remove all images
+								</Button>
+							)}
+						</div>
+						<section className="flex gap-3 flex-wrap my-3">
+							{imageList.map((image, index) => (
+								<div key={index} className="image-item relative">
+									<div className="bg-indigo-30">
+										<img
+											className="object-cover h-32 w-32"
+											src={image["data_url"]}
+											alt={image.file?.name}
+										/>
+									</div>
+									<div className="image-item__btn-wrapper absolute top-2 right-2 flex gap-2">
+										<Button
+											className="right-12"
+											size="xs"
+											colorScheme="orange"
+											onClick={() => onImageUpdate(index)}
+										>
+											<GrUpdate color="white" size={12} />
+										</Button>
+										<Button
+											size="xs"
+											colorScheme="red"
+											onClick={() => onImageRemove(index)}
+										>
+											<MdDelete color="white" size={12} />
+										</Button>
+									</div>
 								</div>
-							</div>
-						))}
+							))}
+						</section>
 					</div>
 				)}
 			</ImageUploading>

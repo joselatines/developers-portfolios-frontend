@@ -7,11 +7,13 @@ export const createPortfolioConfig = {
 		website_link: Yup.string()
 			.url("Invalid URL")
 			.required("Website Link is required"),
+		github_link: Yup.string().url("Invalid URL"),
 		type: Yup.string().required("Type is required"),
 	}),
 	initialValues: {
-		images: [],
+		images: [""],
 		website_link: "",
+		github_link: "",
 		type: "",
 		title: "",
 		description: "",
@@ -36,6 +38,12 @@ export const createPortfolioConfig = {
 			type: "text",
 		},
 		{
+			name: "github_link",
+			label: "Github Link (Optional)",
+			helperText: "Enter the link to the repository.",
+			type: "text",
+		},
+		{
 			name: "type",
 			label: "Type",
 			helperText: "Select the type of your portfolio.",
@@ -45,6 +53,8 @@ export const createPortfolioConfig = {
 				{ value: "backend", label: "Backend" },
 				{ value: "frontend", label: "Frontend" },
 				{ value: "fullstack", label: "Fullstack" },
+				{ value: "mobile", label: "Mobile" },
+				{ value: "software", label: "Software" },
 			],
 		},
 	],

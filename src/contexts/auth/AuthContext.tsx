@@ -13,21 +13,20 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 		getUserFromLocalStorage()
 	);
 
-	useEffect(() => {
-		const handleSetUser = (value: IUserContext | null) => {
-			if (value) {
-				saveUserToLocalStorage(value);
-			} else {
-				localStorage.removeItem(USER_KEY_LOCAL_STORAGE);
-			}
-			setUser(value);
-		};
-
-		handleSetUser(getUserFromLocalStorage());
-	}, []);
+	const handleSetUser = (value: IUserContext | null) => {
+	
+		if (value) {
+			console.info("data saved in localStorage and context");
+			saveUserToLocalStorage(value);
+		} else {
+			localStorage.removeItem(USER_KEY_LOCAL_STORAGE);
+			console.info("data removed in localStorage and context");
+		}
+		setUser(value);
+	};
 
 	return (
-		<AuthContext.Provider value={{ user, setUser }}>
+		<AuthContext.Provider value={{ user, setUser: handleSetUser }}>
 			{children}
 		</AuthContext.Provider>
 	);

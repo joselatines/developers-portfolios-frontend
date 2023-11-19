@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../CONST";
-import { User } from "../interfaces/user.interface";
+import { User } from "../shared/interfaces/user.interface";
 
 export const fetchMeProfileData = async (
 	token: string

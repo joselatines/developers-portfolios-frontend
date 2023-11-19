@@ -5,7 +5,7 @@ import RatePortfolioForm from "../Forms/RatePortfolioForm";
 import CommentsSection from "../shared/Comments/CommentsSection";
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
-import { IPortfolio } from "../../interfaces/portfolio.interface";
+import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 
 interface Props {
 	data: IPortfolio;
@@ -27,7 +27,7 @@ function PortfolioModal({ data }: Props) {
 				/>
 				<ul className="flex gap-2 wrap my-5">
 					<li>
-						<a href={User.github} target="_blank">
+						<a href={User.githubUsername} target="_blank">
 							{User.githubUsername}
 							<AiOutlineLink size={32} />
 						</a>

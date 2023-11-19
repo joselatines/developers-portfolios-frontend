@@ -52,7 +52,7 @@ function SignUpForm() {
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
 
-			<Button type="submit">Send</Button>
+			<Button disabled={formik.isSubmitting} colorScheme="twitter"  type="submit">Sign up</Button>
 		</form>
 	);
 }

@@ -26,19 +26,21 @@ function LoginForm() {
 			try {
 				const response = await loginWithEmail(values);
 
-				if (!response.data.success)
+				if (!response.data.success) {
+					setUser(null);
 					return toast({
 						title: "Authentication",
 						description: response.data.message,
 						status: "error",
 					});
+				}
 
+				setUser(response.data.data);
 				toast({
 					title: "Authentication",
 					description: response.data.message,
 					status: "success",
 				});
-				setUser(response.data.data);
 				navigate("/");
 			} catch (error: any) {
 				console.error(error);
@@ -55,7 +57,13 @@ function LoginForm() {
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
 
-			<Button type="submit">Send</Button>
+			<Button
+				disabled={formik.isSubmitting}
+				colorScheme="twitter"
+				type="submit"
+			>
+				Login
+			</Button>
 		</form>
 	);
 }

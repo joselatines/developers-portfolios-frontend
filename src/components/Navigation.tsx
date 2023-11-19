@@ -40,6 +40,7 @@ export default function Navigation({ links }: Props) {
 				width={"100vw"}
 				bg={"gray.900"}
 				px={5}
+				zIndex={1000}
 			>
 				<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
 					<IconButton

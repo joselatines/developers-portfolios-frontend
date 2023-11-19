@@ -55,7 +55,7 @@ function EditMeProfileForm({
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
-			<Button type="submit">Edit profile data</Button>
+			<Button disabled={formik.isSubmitting} colorScheme="twitter" type="submit">Edit profile data</Button>
 		</form>
 	);
 }
