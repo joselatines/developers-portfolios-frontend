@@ -6,7 +6,7 @@ export default function Root() {
 	return (
 		<>
 			<Navigation links={links} />
-			<main className="pt-20">
+			<main className="pt-20 p-10">
 
 			<Outlet  />
 			</main>

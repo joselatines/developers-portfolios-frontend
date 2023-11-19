@@ -1,25 +1,44 @@
+import { useState, useEffect } from "react";
+import { Heading, Avatar } from "@chakra-ui/react";
+import EditMeProfileForm from "../components/Forms/Me/EditMeProfileForm";
+import { useFetchWithJWT } from "../hooks/useFetchWithJWT";
+import { API_URL, DEFAULT_PROFILE_PIC } from "../CONST";
+import ErrorHandler from "../components/shared/Error";
+import LoaderHandler from "../components/shared/Loader";
 import { Link } from "react-router-dom";
-import { useFetch } from "../hooks/useFetch";
-import { API_URL } from "../CONST";
 
 function MeRoute() {
-	const { data, error } = useFetch<any>(`${API_URL}/users/me`, {
-		headers: {
-			Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkxM2UwZGEyLWE1NTgtNDhhOS1iMmFkLWExNzQ4NmU3ZjhhYyIsInJvbGUiOiJ1c2VyIiwiZW1haWwiOiJ1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTcwMDM1MTY4NSwiZXhwIjoxNzAwMzU1Mjg1fQ.go1bLf_qXOYJSHNe0-IBkM6m1vCcrW6IHOIqBCeWKRs`,
-		},
-	});
+	const { data, error, refetch } = useFetchWithJWT<any>(`${API_URL}/users/me`);
+	const [refresh, setRefresh] = useState(0);
 
-	if (error) return <div>Error: {error.message}</div>;
-	if (!data) return <div>Loading...</div>;
+	useEffect(() => {
+		refetch();
+		console.info("component re-rendered");
+	}, [refresh]);
 
-	console.log(data);
+	if (error?.message) return <ErrorHandler errorMessage={error.message} />;
+	if (!data) return <LoaderHandler />;
+
+	const { username, email, profilePic } = data.data;
+
 	return (
-		<div>
-			<h1>{data.data.email}</h1>
-			<div>
-				<Link to="/me/portfolios/create">Create new portfolio</Link>
-			</div>
-		</div>
+		<section className="grid">
+			<Avatar
+				name={username}
+				size="2xl"
+				src={profilePic || DEFAULT_PROFILE_PIC}
+			/>
+			<Heading>{username}</Heading>
+			<span className="text-lg font-semibold mb-10">{email}</span>
+
+			<EditMeProfileForm
+				refreshParentComponent={setRefresh}
+				initialValues={{ username, profilePic }}
+				userId={data.data.id}
+			/>
+
+			<Link to="/me/portfolios/create">Create new portfolio</Link>
+		</section>
 	);
 }
 

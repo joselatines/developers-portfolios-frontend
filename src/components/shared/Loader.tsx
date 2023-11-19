@@ -1,5 +1,5 @@
-function Loader() {
+function LoaderHandler() {
 	return <div>Loading...</div>;
 }
 
-export default Loader;
+export default LoaderHandler;

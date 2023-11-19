@@ -3,7 +3,6 @@ import {
 	Flex,
 	Avatar,
 	HStack,
-	Text,
 	IconButton,
 	Button,
 	Menu,
@@ -15,11 +14,10 @@ import {
 	useColorModeValue,
 	Stack,
 } from "@chakra-ui/react";
-import { AuthContext } from "../contexts/AuthContext";
 import { useContext, useEffect } from "react";
-import GitHubOAuthButton from "./shared/Buttons/GithubOAuthButton";
-import { Link } from "react-router-dom";
-import { loginWithEmail, signUpWithEmail } from "../services/auth.service";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import { DEFAULT_PROFILE_PIC } from "../CONST";
 
 interface Props {
 	links: LinkElement[];
@@ -27,11 +25,13 @@ interface Props {
 
 export default function Navigation({ links }: Props) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { user } = useContext(AuthContext);
+	const { user, setUser } = useContext(AuthContext);
+	const navigate = useNavigate();
 
-	useEffect(() => {
-		console.log("user context variable has changed");
-	}, [user]);
+	const handleLogout = () => {
+		setUser(null);
+		navigate("/");
+	};
 
 	return (
 		<>
@@ -72,7 +72,7 @@ export default function Navigation({ links }: Props) {
 									cursor={"pointer"}
 									minW={0}
 								>
-									<Avatar size={"sm"} src={user.profilePic} />
+									<Avatar size={"sm"} src={user.profilePic || DEFAULT_PROFILE_PIC} />
 								</MenuButton>
 
 								<MenuList>
@@ -81,7 +81,7 @@ export default function Navigation({ links }: Props) {
 									</Link>
 
 									<MenuDivider />
-									<MenuItem>Log out</MenuItem>
+									<MenuItem onClick={handleLogout}>Log out</MenuItem>
 								</MenuList>
 							</Menu>
 						</Flex>

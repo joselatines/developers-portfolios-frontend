@@ -29,7 +29,7 @@ export const signUpConfig = {
 	validationSchema: Yup.object({
 		email: Yup.string().required("Email is required"),
 		password: Yup.string().required("Password is required"),
-		username: Yup.string().required("Username is required"),
+		username: Yup.string().required("Github username is required"),
 	}),
 	initialValues: {
 		email: "",

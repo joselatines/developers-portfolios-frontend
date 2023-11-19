@@ -1,16 +1,23 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { useContext } from "react";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
-import { loginConfig } from "./config";
+import { formikConfig } from "./config";
 import InputFields from "../InputFields";
-import { loginWithEmail } from "../../../services/auth.service";
+import { editUser } from "../../../services/users.service";
+import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
 
-function LoginForm() {
-	const { validationSchema, initialValues, fields } = loginConfig;
-	const { setUser } = useContext(AuthContext);
-	const navigate = useNavigate();
+interface Props {
+	refreshParentComponent: (prev: any) => void;
+	initialValues: { email?: string; username?: string; profilePic?: string };
+	userId: string;
+}
+
+function EditMeProfileForm({
+	refreshParentComponent,
+	initialValues,
+	userId,
+}: Props) {
+	const { validationSchema, fields } = formikConfig;
 	const toast = useToast();
 
 	const formik = useFormik({
@@ -18,28 +25,24 @@ function LoginForm() {
 		validationSchema,
 
 		onSubmit: async values => {
-			// alert(JSON.stringify(values, null, 2));
-			const credentials = {
-				email: "user@gmail.com",
-				password: "123",
-			};
 			try {
-				const response = await loginWithEmail(credentials);
+				const response = await editUser(values, userId);
 
-				if (!response.data.success)
+				if (!response.data.success) {
 					return toast({
-						title: "Authentication",
+						title: "Editing info",
 						description: response.data.message,
 						status: "error",
 					});
+				}
 
 				toast({
-					title: "Authentication",
+					title: "Editing info",
 					description: response.data.message,
 					status: "success",
 				});
-				setUser(response.data.data);
-				navigate("/");
+
+				refreshParentComponent((prev: number) => prev + 1);
 			} catch (error: any) {
 				console.error(error);
 				toast({
@@ -54,10 +57,9 @@ function LoginForm() {
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
-
-			<Button type="submit">Send</Button>
+			<Button type="submit">Edit profile data</Button>
 		</form>
 	);
 }
 
-export default LoginForm;
+export default EditMeProfileForm;

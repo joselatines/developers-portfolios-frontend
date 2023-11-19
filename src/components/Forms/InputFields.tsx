@@ -35,6 +35,7 @@ function InputFields({ formik, fields }: InputFieldsProps) {
 				<FormControl
 					key={field.name}
 					isInvalid={Boolean(formik.errors[field.name])}
+					marginBottom={5}
 				>
 					<FormLabel htmlFor={field.name}>{field.label}</FormLabel>
 
