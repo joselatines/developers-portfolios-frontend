@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../CONST";
-import { User } from "../shared/interfaces/user.interface";
+import { IUser } from "../shared/interfaces/user.interface";
 
 export const fetchMeProfileData = async (
 	token: string
@@ -13,7 +13,7 @@ export const fetchMeProfileData = async (
 };
 
 export const editUser = async (
-	editData: Partial<User>,
+	editData: Partial<IUser>,
 	id: string
 ): Promise<AxiosResponse> => {
 	const response = await axios.put(`${API_URL}/users/${id}`, editData);

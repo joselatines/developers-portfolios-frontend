@@ -1,4 +1,4 @@
-import { User } from "./user.interface";
+import { IUser } from "./user.interface";
 export const PORTFOLIO_TYPES = {
 	backend: "backend",
 	frontend: "frontend",
@@ -21,6 +21,6 @@ export interface IPortfolio extends CreatePortfolio {
 	id: string;
 	created_by: string; // user id
 	title: string;
-	User: User;
+	User: IUser;
 	rating: number;
 }

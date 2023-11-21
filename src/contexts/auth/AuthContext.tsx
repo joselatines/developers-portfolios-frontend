@@ -1,5 +1,5 @@
-import { createContext, useState, useEffect } from "react";
-import { AuthProviderProps, IAuthContext, IUserContext } from "./types";
+import { createContext, useState } from "react";
+import { IAuthProviderProps, IAuthContext, IUserContext } from "./types";
 import { getUserFromLocalStorage, saveUserToLocalStorage } from "./helper";
 import { USER_KEY_LOCAL_STORAGE } from "../../CONST";
 
@@ -8,13 +8,12 @@ const AuthContext = createContext<IAuthContext>({
 	setUser: () => {},
 });
 
-const AuthProvider = ({ children }: AuthProviderProps) => {
+const AuthProvider = ({ children }: IAuthProviderProps) => {
 	const [user, setUser] = useState<IUserContext | null>(
 		getUserFromLocalStorage()
 	);
 
 	const handleSetUser = (value: IUserContext | null) => {
-	
 		if (value) {
 			console.info("data saved in localStorage and context");
 			saveUserToLocalStorage(value);

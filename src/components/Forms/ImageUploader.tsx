@@ -14,7 +14,7 @@ export function ImageUploader({ images, setImages, maxNumber = 10 }: Props) {
 
 	const onChange = (imageList: ImageListType, addUpdateIndex: any) => {
 		// data for submit
-		console.log(imageList, addUpdateIndex);
+		console.info(imageList, addUpdateIndex);
 		setImages(imageList);
 	};
 
