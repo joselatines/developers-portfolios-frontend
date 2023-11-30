@@ -1,4 +1,3 @@
-// import MOCK_DATA from "../../MOCK_DATA.json";
 import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 
 import PortfolioCard from "./PortfolioCard";

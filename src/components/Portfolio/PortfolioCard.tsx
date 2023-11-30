@@ -1,14 +1,13 @@
 import Popup from "reactjs-popup";
 import { Button, Tag } from "@chakra-ui/react";
 import { FaRegEdit } from "react-icons/fa";
-
+import { usePortfolioOwnership } from "../../hooks/usePortfolioOwnership";
 import PortfolioModal from "./PortfolioModal";
 import {
 	IPortfolio,
 	PORTFOLIO_TYPES,
 } from "../../shared/interfaces/portfolio.interface";
-import { useCurrentRole } from "../../hooks/useCurrentRole";
-import { ROLES } from "../../contexts/auth/types";
+import { DEFAULT_PORTFOLIO_PIC } from "../../CONST";
 
 interface Props {
 	portfolio: IPortfolio;
@@ -16,7 +15,7 @@ interface Props {
 
 function PortfolioCard({ portfolio }: Props) {
 	const { images, title, description, type, User, rating } = portfolio;
-	const currentRole = useCurrentRole();
+	const [isPortfolioOwner] = usePortfolioOwnership(User.id);
 
 	// Determine rate color based on rating
 	const getRateColor = (ratingNumber: number) => {
@@ -50,7 +49,7 @@ function PortfolioCard({ portfolio }: Props) {
 				trigger={
 					<img
 						className="w-full h-64 object-cover cursor-pointer"
-						src={images[0]}
+						src={images[0] || DEFAULT_PORTFOLIO_PIC}
 						alt="Portfolio"
 					/>
 				}
@@ -59,7 +58,7 @@ function PortfolioCard({ portfolio }: Props) {
 				<PortfolioModal data={portfolio} />
 			</Popup>
 
-			{currentRole === ROLES.user && (
+			{[isPortfolioOwner] && (
 				<Button>
 					<FaRegEdit />
 				</Button>
