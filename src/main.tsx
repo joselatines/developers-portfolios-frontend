@@ -14,6 +14,7 @@ import LoginRoute from "./routes/auth/login";
 import PortfoliosRoute from "./routes/portfolios";
 import { AuthProvider } from "./contexts/auth/AuthContext";
 import SignUpRoute from "./routes/auth/signup";
+import UserRoute from "./routes/users";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
@@ -32,6 +33,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 									path="/me/portfolios/create"
 								/>
 							</Route>
+
+							 <Route element={<UserRoute />} path="/users/:id" />
 
 							<Route element={<LoginRoute />} path="/auth/login" />
 							<Route element={<SignUpRoute />} path="/auth/signup" />
