@@ -12,8 +12,9 @@ interface Props {
 }
 
 function PortfolioModal({ data }: Props) {
-	const { images, title, description, User, github_link, website_link, id } = data;
-	const [showComments, setShowComments] = useState(false);
+	const { images, title, description, User, github_link, website_link, id } =
+		data;
+	const [showComments, setShowComments] = useState(true);
 
 	return (
 		<article className="md:grid grid-cols-2 h-[90vh] overflow-auto">

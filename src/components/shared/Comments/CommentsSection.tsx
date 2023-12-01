@@ -1,44 +1,19 @@
+import { API_URL } from "../../../CONST";
+import { useFetch } from "../../../hooks/useFetch";
+import { IComment } from "../../../shared/interfaces/comments.interface";
 import Comment from "./Comment";
 
-const f = [
-	{
-		user: {
-			profilePic: "https://avatars.githubusercontent.com/u/22263436?v=4",
-			profileUrl: "",
-			githubUsername: "githubUsername 21",
-		},
-		id: "54564",
-		comment:
-			"at TypeScriptParserMixin.parseStatementContent (/workspaces/developers-portfolios-frontend/node_modules/@babel/parser/lib/index.js:12688:23)",
-	},
-	{
-		user: {
-			profilePic: "https://avatars.githubusercontent.com/u/22263436?v=4",
-			profileUrl: "",
-			githubUsername: "githubUsername 21",
-		},
-		id: "54564",
-		comment:
-			"at TypeScriptParserMixin.parseStatementContent (/workspaces/developers-portfolios-frontend/node_modules/@babel/parser/lib/index.js:12688:23)",
-	},
-	{
-		user: {
-			profilePic: "https://avatars.githubusercontent.com/u/22263436?v=4",
-			profileUrl: "",
-			githubUsername: "githubUsername 21",
-		},
-		id: "54564",
-		comment:
-			"at TypeScriptParserMixin.parseStatementContent (/workspaces/developers-portfolios-frontend/node_modules/@babel/parser/lib/index.js:12688:23)",
-	},
-];
-
 function CommentsSection() {
+	const { data, error } = useFetch(`${API_URL}/portfolios/comments`);
+
+	if (error) return <div>Error: {error.message}</div>;
+	if (!data) return <div>Loading comments...</div>;
+
 	return (
 		<section>
 			<span className="text-xl font-bold">Comment section</span>
 			<div className="flex flex-col">
-				{f.map(c => (
+				{data.data.map((c: IComment) => (
 					<Comment key={c.id} data={c} />
 				))}
 			</div>
