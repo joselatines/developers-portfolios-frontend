@@ -2,12 +2,13 @@ import { Button, Textarea, useToast } from "@chakra-ui/react";
 import { AiOutlineStar } from "react-icons/ai";
 import { useState } from "react";
 import { createRatingToPortfolio } from "../../services/ratings.service";
+import { useNavigate } from "react-router-dom";
 
 function RatePortfolioForm({ portfolioId }: IProps) {
 	const [rateNumber, setRateNumber] = useState(0);
 	const [comment, setComment] = useState("");
 	const toast = useToast();
-
+	const navigate = useNavigate();
 	const handleRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setRateNumber(Number(event.target.value));
 	};
@@ -19,7 +20,7 @@ function RatePortfolioForm({ portfolioId }: IProps) {
 			portfolio_id: portfolioId,
 		};
 		try {
-			const response = await 	createRatingToPortfolio(body);
+			const response = await createRatingToPortfolio(body);
 			if (!response.data.success) {
 				return toast({
 					title: "Rating portfolio",
@@ -33,6 +34,9 @@ function RatePortfolioForm({ portfolioId }: IProps) {
 				description: response.data.message,
 				status: "success",
 			});
+			setTimeout(() => {
+				navigate(0);
+			}, 2000);
 		} catch (error: any) {
 			console.error(error);
 			toast({
@@ -41,7 +45,6 @@ function RatePortfolioForm({ portfolioId }: IProps) {
 				status: "error",
 			});
 		}
-	
 	};
 
 	return (

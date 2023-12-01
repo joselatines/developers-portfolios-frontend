@@ -8,12 +8,7 @@ function HomeRoute() {
 	if (error) return <div>Error: {error.message}</div>;
 	if (!data) return <div>Loading...</div>;
 
-	return (
-		<div>
-			HomeRoute
-			<PortfoliosSection portfolios={data.data} />
-		</div>
-	);
+	return <PortfoliosSection portfolios={data.data} />;
 }
 
 export default HomeRoute;

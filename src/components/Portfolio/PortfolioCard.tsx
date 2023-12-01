@@ -8,7 +8,7 @@ import { DEFAULT_PORTFOLIO_PIC } from "../../CONST";
 import { getRateColor, getTypeColor } from "../../shared/utils/uiHelpers";
 
 function PortfolioCard({ portfolio }: Props) {
-	const { images, title, description, type, User, rating } = portfolio;
+	const { images, title, description, type, User, avg_rating } = portfolio;
 	const [isPortfolioOwner] = usePortfolioOwnership(User.id);
 
 	return (
@@ -48,7 +48,7 @@ function PortfolioCard({ portfolio }: Props) {
 				</article>
 				<h1>{description}</h1>
 
-				<Tag colorScheme={getRateColor(rating)}>{rating}/10</Tag>
+				<Tag colorScheme={getRateColor(avg_rating)}>{avg_rating}/10</Tag>
 				<Tag colorScheme={getTypeColor(type)}>{type}</Tag>
 			</section>
 		</article>

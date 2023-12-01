@@ -34,7 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 								/>
 							</Route>
 
-							 <Route element={<UserRoute />} path="/users/:id" />
+							<Route element={<UserRoute />} path="/users/:id" />
 
 							<Route element={<LoginRoute />} path="/auth/login" />
 							<Route element={<SignUpRoute />} path="/auth/signup" />

@@ -2,7 +2,7 @@ import { BsGithub } from "react-icons/bs";
 import { AiOutlineLink } from "react-icons/ai";
 import { FaEye } from "react-icons/fa";
 import RatePortfolioForm from "../Forms/RatePortfolioForm";
-import CommentsSection from "../shared/Comments/CommentsSection";
+import CommentsSection from "./Comments/CommentsSection";
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
@@ -15,6 +15,7 @@ function PortfolioModal({ data }: Props) {
 	const { images, title, description, User, github_link, website_link, id } =
 		data;
 	const [showComments, setShowComments] = useState(true);
+
 
 	return (
 		<article className="md:grid grid-cols-2 h-[90vh] overflow-auto">
