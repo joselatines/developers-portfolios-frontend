@@ -12,7 +12,7 @@ interface Props {
 }
 
 function PortfolioModal({ data }: Props) {
-	const { images, title, description, User, github_link, website_link } = data;
+	const { images, title, description, User, github_link, website_link, id } = data;
 	const [showComments, setShowComments] = useState(false);
 
 	return (
@@ -21,7 +21,7 @@ function PortfolioModal({ data }: Props) {
 				<h2 className="text-5xl font-bold">{title}</h2>
 				<p className="mb-4 mt-5">{description}</p>
 				<img
-					className="w-full h-64 object-cover h-[100%] md:hidden"
+					className="w-full object-cover h-[100%] md:hidden"
 					src={images[0]}
 					alt="Portfolio"
 				/>
@@ -46,7 +46,7 @@ function PortfolioModal({ data }: Props) {
 					)}
 				</ul>
 				<section className="mt-7 flex flex-col">
-					<RatePortfolioForm />
+					<RatePortfolioForm portfolioId={id} />
 
 					<Button
 						className="mb-6 mt-8 center flex gap-1"

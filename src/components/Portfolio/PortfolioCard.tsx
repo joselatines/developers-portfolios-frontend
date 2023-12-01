@@ -9,42 +9,12 @@ import {
 } from "../../shared/interfaces/portfolio.interface";
 import { DEFAULT_PORTFOLIO_PIC } from "../../CONST";
 
-interface Props {
-	portfolio: IPortfolio;
-}
-
 function PortfolioCard({ portfolio }: Props) {
 	const { images, title, description, type, User, rating } = portfolio;
 	const [isPortfolioOwner] = usePortfolioOwnership(User.id);
 
-	// Determine rate color based on rating
-	const getRateColor = (ratingNumber: number) => {
-		let rateColor = ratingNumber > 5 ? "teal" : "red"; // 7: green | 4: red
-		rateColor = ratingNumber >= 5 && ratingNumber <= 7 ? "orange" : rateColor; // 5: orange
-		return rateColor;
-	};
-
-	// Determine type color based on portfolio type
-	const getTypeColor = (type: string) => {
-		switch (type) {
-			case PORTFOLIO_TYPES.backend:
-				return "blue";
-			case PORTFOLIO_TYPES.frontend:
-				return "purple";
-			case PORTFOLIO_TYPES.fullstack:
-				return "gold";
-			case PORTFOLIO_TYPES.mobile:
-				return "green";
-			case PORTFOLIO_TYPES.software:
-				return "yellow";
-			default:
-				return "gray";
-		}
-	};
-
 	return (
 		<article className="max-w-md mx-auto overflow-hidden">
-			{/* Popup with PortfolioModal */}
 			<Popup
 				trigger={
 					<img
@@ -58,7 +28,7 @@ function PortfolioCard({ portfolio }: Props) {
 				<PortfolioModal data={portfolio} />
 			</Popup>
 
-			{[isPortfolioOwner] && (
+			{isPortfolioOwner && (
 				<Button>
 					<FaRegEdit />
 				</Button>
@@ -87,5 +57,35 @@ function PortfolioCard({ portfolio }: Props) {
 		</article>
 	);
 }
+
+interface Props {
+	portfolio: IPortfolio;
+}
+
+
+// Determine rate color based on rating
+const getRateColor = (ratingNumber: number) => {
+	let rateColor = ratingNumber > 5 ? "teal" : "red"; // 7: green | 4: red
+	rateColor = ratingNumber >= 5 && ratingNumber <= 7 ? "orange" : rateColor; // 5: orange
+	return rateColor;
+};
+
+// Determine type color based on portfolio type
+const getTypeColor = (type: string) => {
+	switch (type) {
+		case PORTFOLIO_TYPES.backend:
+			return "blue";
+		case PORTFOLIO_TYPES.frontend:
+			return "purple";
+		case PORTFOLIO_TYPES.fullstack:
+			return "gold";
+		case PORTFOLIO_TYPES.mobile:
+			return "green";
+		case PORTFOLIO_TYPES.software:
+			return "yellow";
+		default:
+			return "gray";
+	}
+};
 
 export default PortfolioCard;
