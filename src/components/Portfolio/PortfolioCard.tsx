@@ -1,12 +1,10 @@
 import Popup from "reactjs-popup";
-import { Button, Tag } from "@chakra-ui/react";
-import { FaRegEdit } from "react-icons/fa";
+import { Tag } from "@chakra-ui/react";
 import { usePortfolioOwnership } from "../../hooks/usePortfolioOwnership";
 import PortfolioModal from "./PortfolioModal";
 import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 import { DEFAULT_PORTFOLIO_PIC } from "../../CONST";
 import { getRateColor, getTypeColor } from "../../shared/utils/uiHelpers";
-import OwnerFunction from "./OwnerFunctions";
 import OwnerFunctions from "./OwnerFunctions";
 
 function PortfolioCard({ portfolio }: Props) {
