@@ -1,5 +1,14 @@
 import * as Yup from "yup";
 
+export interface IInitialValues {
+	images: string[];
+	website_link: string;
+	github_link: string;
+	type: string;
+	title: string;
+	description: string;
+}
+
 export const createPortfolioConfig = {
 	validationSchema: Yup.object({
 		title: Yup.string().required("Title is required"),

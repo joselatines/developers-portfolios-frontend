@@ -6,9 +6,11 @@ import PortfolioModal from "./PortfolioModal";
 import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 import { DEFAULT_PORTFOLIO_PIC } from "../../CONST";
 import { getRateColor, getTypeColor } from "../../shared/utils/uiHelpers";
+import OwnerFunction from "./OwnerFunctions";
+import OwnerFunctions from "./OwnerFunctions";
 
 function PortfolioCard({ portfolio }: Props) {
-	const { images, title, description, type, User, avg_rating } = portfolio;
+	const { images, title, description, type, User, avg_rating, id } = portfolio;
 	const [isPortfolioOwner] = usePortfolioOwnership(User.id);
 
 	return (
@@ -26,11 +28,7 @@ function PortfolioCard({ portfolio }: Props) {
 				<PortfolioModal data={portfolio} />
 			</Popup>
 
-			{isPortfolioOwner && (
-				<Button>
-					<FaRegEdit />
-				</Button>
-			)}
+			{isPortfolioOwner && <OwnerFunctions portfolioId={id} />}
 
 			{/* Portfolio details section */}
 			<section className="p-1 flex items-center justify-between">

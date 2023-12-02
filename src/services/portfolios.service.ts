@@ -21,3 +21,35 @@ export const createPortfolio = async (
 	);
 	return response;
 };
+export const editPortfolio = async (
+	portfolioData: Partial<CreatePortfolio>,
+	id: string
+): Promise<AxiosResponse> => {
+	const user = getUserFromLocalStorage();
+
+	if (!user) throw new Error("User in localStorage was not found");
+
+	const options = {
+		headers: { Authorization: `Bearer ${user.token}` },
+	};
+
+	const response = await axios.put(
+		`${API_URL}/portfolios/${id}`,
+		portfolioData,
+		options
+	);
+	return response;
+};
+
+export const deletePortfolio = async (id: string): Promise<AxiosResponse> => {
+	const user = getUserFromLocalStorage();
+
+	if (!user) throw new Error("User in localStorage was not found");
+
+	const options = {
+		headers: { Authorization: `Bearer ${user.token}` },
+	};
+
+	const response = await axios.delete(`${API_URL}/portfolios/${id}`, options);
+	return response;
+};

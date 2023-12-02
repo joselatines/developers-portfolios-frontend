@@ -11,10 +11,10 @@ import Root from "./routes/root";
 import CreatePortfolioRoute from "./routes/portfolios/create";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import LoginRoute from "./routes/auth/login";
-import PortfoliosRoute from "./routes/portfolios";
 import { AuthProvider } from "./contexts/auth/AuthContext";
 import SignUpRoute from "./routes/auth/signup";
 import UserRoute from "./routes/users";
+import PortfolioEditRoute from "./routes/portfolios/edit";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
@@ -27,10 +27,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 							<Route element={<PrivateRoutes />} path="me">
 								<Route element={<MeRoute />} path="/me" />
-								<Route element={<PortfoliosRoute />} path="/me/portfolios" />
 								<Route
 									element={<CreatePortfolioRoute />}
 									path="/me/portfolios/create"
+								/>
+								<Route
+									element={<PortfolioEditRoute />}
+									path="/me/portfolios/edit/:id"
 								/>
 							</Route>
 
