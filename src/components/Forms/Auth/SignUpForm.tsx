@@ -22,18 +22,18 @@ function SignUpForm() {
 				githubUsername: "puto user",
 			}; */
 			try {
-				const response = await signUpWithEmail(values);
+				const res = await signUpWithEmail(values);
 
-				if (!response.data.success)
+				if (!res.data.success)
 					return toast({
 						title: "Authentication",
-						description: response.data.message,
+						description: res.data.message,
 						status: "error",
 					});
 
 				toast({
 					title: "Authentication",
-					description: response.data.message,
+					description: res.data.message,
 					status: "success",
 				});
 				navigate("/auth/login");
@@ -52,7 +52,13 @@ function SignUpForm() {
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
 
-			<Button disabled={formik.isSubmitting} colorScheme="twitter"  type="submit">Sign up</Button>
+			<Button
+				disabled={formik.isSubmitting}
+				colorScheme="twitter"
+				type="submit"
+			>
+				Sign up
+			</Button>
 		</form>
 	);
 }

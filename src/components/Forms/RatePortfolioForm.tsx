@@ -1,16 +1,16 @@
-import { Button, Textarea, useToast } from "@chakra-ui/react";
+import { Button, Textarea } from "@chakra-ui/react";
 import { AiOutlineStar } from "react-icons/ai";
 import { useState } from "react";
 import { createRatingToPortfolio } from "../../services/ratings.service";
-import { useNavigate } from "react-router-dom";
+import useCustomToast from "../../hooks/useCustomToast";
 
-function RatePortfolioForm({ portfolioId }: IProps) {
+function RatePortfolioForm({ portfolioId, refreshParent }: IProps) {
+	const { handleToastSuccess, handleToastError } = useCustomToast();
 	const [rateNumber, setRateNumber] = useState(0);
 	const [comment, setComment] = useState("");
-	const toast = useToast();
-	const navigate = useNavigate();
-	const handleRateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setRateNumber(Number(event.target.value));
+
+	const handleRateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setRateNumber(Number(e.target.value));
 	};
 
 	const handleGiveRateClick = async () => {
@@ -19,31 +19,16 @@ function RatePortfolioForm({ portfolioId }: IProps) {
 			rating: rateNumber,
 			portfolio_id: portfolioId,
 		};
-		try {
-			const response = await createRatingToPortfolio(body);
-			if (!response.data.success) {
-				return toast({
-					title: "Rating portfolio",
-					description: response.data.message,
-					status: "error",
-				});
-			}
 
-			toast({
-				title: "Rating portfolio",
-				description: response.data.message,
-				status: "success",
-			});
-			setTimeout(() => {
-				navigate(0);
-			}, 2000);
+		try {
+			const res = await createRatingToPortfolio(body);
+			if (!res.data.success)
+				return handleToastError(res.data.message, "Feedback Portfolio");
+
+			handleToastSuccess(res.data.message, "Feedback Portfolio");
+			refreshParent();
 		} catch (error: any) {
-			console.error(error);
-			toast({
-				title: "Unexpected error",
-				description: error.message,
-				status: "error",
-			});
+			handleToastError(error.message);
 		}
 	};
 
@@ -77,6 +62,7 @@ function RatePortfolioForm({ portfolioId }: IProps) {
 
 interface IProps {
 	portfolioId: string;
+	refreshParent: () => void;
 }
 
 export default RatePortfolioForm;

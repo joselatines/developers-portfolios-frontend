@@ -1,4 +1,4 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useContext } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -6,49 +6,34 @@ import { loginConfig } from "./config";
 import InputFields from "../InputFields";
 import { loginWithEmail } from "../../../services/auth.service";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
+import useCustomToast from "../../../hooks/useCustomToast";
 
 function LoginForm() {
 	const { validationSchema, initialValues, fields } = loginConfig;
 	const { setUser } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const toast = useToast();
 
+	const { handleToastSuccess, handleToastError } = useCustomToast();
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
 
 		onSubmit: async values => {
-			// alert(JSON.stringify(values, null, 2));
-			/* const credentials = {
-				email: "user@gmail.com",
-				password: "123",
-			}; */
 			try {
-				const response = await loginWithEmail(values);
+				const res = await loginWithEmail(values);
 
-				if (!response.data.success) {
+				if (!res.data.success) {
 					setUser(null);
-					return toast({
-						title: "Authentication",
-						description: response.data.message,
-						status: "error",
-					});
+					handleToastError(res.data.message, "Authentication");
 				}
 
-				setUser(response.data.data);
-				toast({
-					title: "Authentication",
-					description: response.data.message,
-					status: "success",
-				});
+				handleToastSuccess(res.data.message, "Authentication");
+				setUser(res.data.data);
+				console.log(res.data.data);
 				navigate("/");
 			} catch (error: any) {
 				console.error(error);
-				toast({
-					title: "Unexpected error",
-					description: error.message,
-					status: "error",
-				});
+				handleToastError(error.message, "Authentication");
 			}
 		},
 	});

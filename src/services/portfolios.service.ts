@@ -14,12 +14,8 @@ export const createPortfolio = async (
 		headers: { Authorization: `Bearer ${user.token}` },
 	};
 
-	const response = await axios.post(
-		`${API_URL}/portfolios`,
-		portfolioData,
-		options
-	);
-	return response;
+	const res = await axios.post(`${API_URL}/portfolios`, portfolioData, options);
+	return res;
 };
 export const editPortfolio = async (
 	portfolioData: Partial<CreatePortfolio>,
@@ -33,12 +29,12 @@ export const editPortfolio = async (
 		headers: { Authorization: `Bearer ${user.token}` },
 	};
 
-	const response = await axios.put(
+	const res = await axios.put(
 		`${API_URL}/portfolios/${id}`,
 		portfolioData,
 		options
 	);
-	return response;
+	return res;
 };
 
 export const deletePortfolio = async (id: string): Promise<AxiosResponse> => {
@@ -50,6 +46,6 @@ export const deletePortfolio = async (id: string): Promise<AxiosResponse> => {
 		headers: { Authorization: `Bearer ${user.token}` },
 	};
 
-	const response = await axios.delete(`${API_URL}/portfolios/${id}`, options);
-	return response;
+	const res = await axios.delete(`${API_URL}/portfolios/${id}`, options);
+	return res;
 };

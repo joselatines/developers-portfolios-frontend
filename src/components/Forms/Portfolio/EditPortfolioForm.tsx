@@ -23,12 +23,12 @@ function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 		}
 
 		try {
-			const response = await editPortfolio(valuesParsed, portfolioId);
+			const res = await editPortfolio(valuesParsed, portfolioId);
 
-			if (!response.data.success) {
-				handleToastError(response.data.message, "Portfolio");
+			if (!res.data.success) {
+				handleToastError(res.data.message, "Portfolio");
 			} else {
-				handleToastSuccess(response.data.message);
+				handleToastSuccess(res.data.message);
 				navigate("/me");
 			}
 		} catch (error: any) {

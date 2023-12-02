@@ -1,22 +1,14 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { formikConfig } from "./config";
 import InputFields from "../InputFields";
 import { editUser } from "../../../services/users.service";
+import useCustomToast from "../../../hooks/useCustomToast";
 
-interface Props {
-	refreshParentComponent: (prev: any) => void;
-	initialValues: { email?: string; githubUsername?: string; profilePic?: string };
-	userId: string;
-}
 
-function EditMeProfileForm({
-	refreshParentComponent,
-	initialValues,
-	userId,
-}: Props) {
+function EditMeProfileForm({ refreshParent, initialValues, userId }: IProps) {
+	const { handleToastSuccess, handleToastError } = useCustomToast();
 	const { validationSchema, fields } = formikConfig;
-	const toast = useToast();
 
 	const formik = useFormik({
 		initialValues,
@@ -24,30 +16,14 @@ function EditMeProfileForm({
 
 		onSubmit: async values => {
 			try {
-				const response = await editUser(values, userId);
+				const res = await editUser(values, userId);
+				if (!res.data.success)
+					return handleToastError(res.data.message, "Editing info");
 
-				if (!response.data.success) {
-					return toast({
-						title: "Editing info",
-						description: response.data.message,
-						status: "error",
-					});
-				}
-
-				toast({
-					title: "Editing info",
-					description: response.data.message,
-					status: "success",
-				});
-
-				refreshParentComponent((prev: number) => prev + 1);
+				handleToastSuccess(res.data.message, "Editing info");
+				refreshParent();
 			} catch (error: any) {
-				console.error(error);
-				toast({
-					title: "Unexpected error",
-					description: error.message,
-					status: "error",
-				});
+				handleToastError(error.message);
 			}
 		},
 	});
@@ -55,9 +31,26 @@ function EditMeProfileForm({
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
-			<Button disabled={formik.isSubmitting} colorScheme="twitter" type="submit">Edit profile data</Button>
+			<Button
+				disabled={formik.isSubmitting}
+				colorScheme="twitter"
+				type="submit"
+			>
+				Edit profile data
+			</Button>
 		</form>
 	);
 }
+
+interface IProps {
+	refreshParent: () => void;
+	initialValues: {
+		email?: string;
+		githubUsername?: string;
+		profilePic?: string;
+	};
+	userId: string;
+}
+
 
 export default EditMeProfileForm;

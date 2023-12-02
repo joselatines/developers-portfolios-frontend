@@ -1,35 +1,23 @@
-import { Button, Toast, useToast } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { deletePortfolio } from "../../services/portfolios.service";
+import useCustomToast from "../../hooks/useCustomToast";
 
 function OwnerFunctions({ portfolioId }: { portfolioId: string }) {
-	const toast = useToast();
+	const { handleToastSuccess, handleToastError } = useCustomToast();
 	const navigate = useNavigate();
 	const handleDelete = async (portfolioId: string) => {
 		try {
-			const response = await deletePortfolio(portfolioId);
-			if (!response.data.success) {
-				return Toast({
-					title: "Portfolio",
-					description: response.data.message,
-					status: "error",
-				});
-			}
-			navigate(0);
-			toast({
-				title: "Portfolio",
-				description: response.data.message,
-				status: "success",
-			});
+			const res = await deletePortfolio(portfolioId);
+			if (!res.data.success)
+				return handleToastError(res.data.message, "Portfolio");
+
+			handleToastSuccess(res.data.message, "Portfolio");
+			navigate("/me");
 		} catch (error: any) {
-			console.error(error);
-			toast({
-				title: "Unexpected error",
-				description: error.message,
-				status: "error",
-			});
+			handleToastError(error.message);
 		}
 	};
 	return (

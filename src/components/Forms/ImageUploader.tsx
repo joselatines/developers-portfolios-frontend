@@ -3,13 +3,13 @@ import ImageUploading, { ImageListType } from "react-images-uploading";
 import { MdDelete } from "react-icons/md";
 import { GrUpdate } from "react-icons/gr";
 
-interface Props {
+interface IProps {
 	images: ImageListType;
 	setImages: (images: ImageListType | any) => void; // initialize in []
 	maxNumber?: number;
 }
 
-export function ImageUploader({ images, setImages, maxNumber = 10 }: Props) {
+export function ImageUploader({ images, setImages, maxNumber = 10 }: IProps) {
 	// 	const [images, setImages] = useState([]);
 
 	const onChange = (imageList: ImageListType, addUpdateIndex: any) => {

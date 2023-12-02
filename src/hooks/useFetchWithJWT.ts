@@ -9,8 +9,8 @@ interface State {
 
 // Custom hook for fetching data with JWT
 export const useFetchWithJWT = (url: string, options?: RequestInit) => {
-	// Initialize state to hold response and error
-	const [response, setResponse] = useState<State>({});
+	// Initialize state to hold res and error
+	const [res, setResponse] = useState<State>({});
 
 	// Get user information from local storage
 	const user = getUserFromLocalStorage();
@@ -30,7 +30,7 @@ export const useFetchWithJWT = (url: string, options?: RequestInit) => {
 			const res = await fetch(url, { ...options, ...config });
 			const json = await res.json();
 
-			// Check if the response is OK, otherwise throw an error
+			// Check if the res is OK, otherwise throw an error
 			if (!res.ok) {
 				throw new Error(json.message || "Fetch failed");
 			}
@@ -54,5 +54,5 @@ export const useFetchWithJWT = (url: string, options?: RequestInit) => {
 	}, [fetchData]);
 
 	// Return the result including data, error, and refetch function
-	return { ...response, refetch };
+	return { ...res, refetch };
 };

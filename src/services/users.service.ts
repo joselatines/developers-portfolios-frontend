@@ -8,14 +8,14 @@ export const fetchMeProfileData = async (
 	const config = {
 		headers: { Authorization: `Bearer ${token}` },
 	};
-	const response = await axios.get(`${API_URL}/users/me`, config);
-	return response;
+	const res = await axios.get(`${API_URL}/users/me`, config);
+	return res;
 };
 
 export const editUser = async (
 	editData: Partial<IUser>,
 	id: string
 ): Promise<AxiosResponse> => {
-	const response = await axios.put(`${API_URL}/users/${id}`, editData);
-	return response;
+	const res = await axios.put(`${API_URL}/users/${id}`, editData);
+	return res;
 };

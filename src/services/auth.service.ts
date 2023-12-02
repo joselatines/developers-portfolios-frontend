@@ -16,26 +16,24 @@ export const loginWithGithub = async () => {
 		},
 	};
 	try {
-		const response = await axios.get(`${API_URL}/auth/github`, opts);
-		return response;
+		const res = await axios.get(`${API_URL}/auth/github`, opts);
+		return res;
 	} catch (error: any) {
-		throw new Error(`HTTP error! status: ${error.response.status}`);
+		throw new Error(`HTTP error! status: ${error.res.status}`);
 	}
 };
 
 export const signUpWithEmail = async (
 	credentials: SignUpCredentials
 ): Promise<AxiosResponse> => {
-	const response = await axios.post(`${API_URL}/auth/signup`, credentials);
-	return response;
+	const res = await axios.post(`${API_URL}/auth/signup`, credentials);
+	return res;
 };
 
 export const loginWithEmail = async (
 	credentials: LoginCredentials
 ): Promise<AxiosResponse> => {
-	const response = await axios.post(`${API_URL}/auth/login`, credentials);
+	const res = await axios.post(`${API_URL}/auth/login`, credentials);
 
-	return response;
+	return res;
 };
-
-

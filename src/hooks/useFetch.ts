@@ -6,7 +6,7 @@ interface State {
 }
 
 export const useFetch = (url: string, options?: RequestInit) => {
-	const [response, setResponse] = useState<State>({});
+	const [res, setResponse] = useState<State>({});
 
 	// Function to fetch data from the specified URL
 	const fetchData = useCallback(async () => {
@@ -30,5 +30,5 @@ export const useFetch = (url: string, options?: RequestInit) => {
 	}, [fetchData]);
 
 	// Return the result including data, error, and refetch function
-	return { ...response, refetch };
+	return { ...res, refetch };
 };

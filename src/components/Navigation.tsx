@@ -18,11 +18,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/auth/AuthContext";
 import { DEFAULT_PROFILE_PIC } from "../CONST";
 
-interface Props {
+interface IProps {
 	links: LinkElement[];
 }
 
-export default function Navigation({ links }: Props) {
+export default function Navigation({ links }: IProps) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { user, setUser } = useContext(AuthContext);
 	const navigate = useNavigate();

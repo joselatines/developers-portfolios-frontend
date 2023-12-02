@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback,useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { FaEye } from "react-icons/fa";
 import { API_URL } from "../../../CONST";
@@ -9,44 +9,62 @@ import RatePortfolioForm from "../../Forms/RatePortfolioForm";
 import ErrorHandler from "../../shared/Error";
 import LoaderHandler from "../../shared/Loader";
 
-
 const CommentsSection = ({ portfolioId }: IProps) => {
-  const { data, error } = useFetch(`${API_URL}/portfolios/comments`);
-  const [showComments, setShowComments] = useState(true);
+	const {
+		data,
+		error,
+		refetch: refetchComments,
+	} = useFetch(`${API_URL}/portfolios/comments`);
+	const [showComments, setShowComments] = useState(true);
+	const [refresh, setRefresh] = useState(0);
 
-  if (error) return <ErrorHandler errorMessage={error.message} />;
-  if (!data) return <LoaderHandler/>;
+	const handleRefresh = useCallback(() => {
+		setRefresh(prev => prev + 1);
+		refetchComments();
+	}, [refresh]);
 
-  const filteredComments = data.data.filter((c: IComment) => c.comment.length > 3);
+	if (error) return <ErrorHandler errorMessage={error.message} />;
+	if (!data) return <LoaderHandler />;
 
-  const toggleComments = () => setShowComments((prev) => !prev);
+	const filteredComments = data.data.filter(
+		(c: IComment) => c.comment.length > 3
+	);
 
-  return (
-    <>
-      <RatePortfolioForm portfolioId={portfolioId} />
+	const toggleComments = () => setShowComments(prev => !prev);
 
-      <Button
-        className="mb-6 mt-8 center flex gap-1"
-        colorScheme="teal"
-        onClick={toggleComments}
-      >
-        <FaEye /> {showComments ? "Hide comments" : "Show comments"}
-      </Button>
+	return (
+		<>
+			<RatePortfolioForm
+				portfolioId={portfolioId}
+				refreshParent={handleRefresh}
+			/>
 
-      <span className="text-xl font-bold">Comment section</span>
-      <section className={showComments ? "h-56 overflow-auto" : "hidden"}>
-        <div className="flex flex-col">
-          {filteredComments.map((comment: IComment) => (
-            <Comment key={comment.id} data={comment} />
-          ))}
-        </div>
-      </section>
-    </>
-  );
+			<Button
+				className="mb-6 mt-8 center flex gap-1"
+				colorScheme="teal"
+				onClick={toggleComments}
+			>
+				<FaEye /> {showComments ? "Hide comments" : "Show comments"}
+			</Button>
+
+			<span className="text-xl font-bold">Comment section</span>
+			<section className={showComments ? "h-56 overflow-auto" : "hidden"}>
+				<div className="flex flex-col">
+					{filteredComments.map((comment: IComment) => (
+						<Comment
+							key={comment.id}
+							data={comment}
+							refreshParent={handleRefresh}
+						/>
+					))}
+				</div>
+			</section>
+		</>
+	);
 };
 
 interface IProps {
-  portfolioId: string;
+	portfolioId: string;
 }
 
 export default CommentsSection;

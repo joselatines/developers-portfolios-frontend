@@ -2,11 +2,11 @@ import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 
 import PortfolioCard from "./PortfolioCard";
 
-interface Props {
+interface IProps {
 	portfolios: IPortfolio[];
 }
 
-function PortfoliosSection({ portfolios }: Props) {
+function PortfoliosSection({ portfolios }: IProps) {
 	return (
 		<section className="flex gap-5 flex-wrap">
 			{portfolios.map(p => (

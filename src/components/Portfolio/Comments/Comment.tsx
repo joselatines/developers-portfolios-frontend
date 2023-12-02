@@ -1,46 +1,27 @@
-import { Button, Tag, useToast } from "@chakra-ui/react";
+import { Button, Tag } from "@chakra-ui/react";
 import { IComment } from "../../../shared/interfaces/comments.interface";
 import { getUserProfileUrl } from "../../../shared/utils/getUserProfileUrl";
 import { getRateColor } from "../../../shared/utils/uiHelpers";
 import { usePortfolioOwnership } from "../../../hooks/usePortfolioOwnership";
 import { MdDelete } from "react-icons/md";
 import { deleteComment } from "../../../services/comments.service";
-import { useNavigate } from "react-router-dom";
+import useCustomToast from "../../../hooks/useCustomToast";
 
-interface Props {
-	data: IComment;
-}
-
-function Comment({ data }: Props) {
+function Comment({ data, refreshParent }: IProps) {
 	const { User, comment, rating, id } = data;
 	const [isPortfolioOwner] = usePortfolioOwnership(User.id);
-	const toast = useToast();
-	const navigate = useNavigate();
+	const { handleToastSuccess, handleToastError } = useCustomToast();
 
 	const handleDeleteComment = async (commentId: string) => {
 		try {
-			const response = await deleteComment(commentId);
-			if (!response.data.success) {
-				return toast({
-					title: "Comment",
-					description: response.data.message,
-					status: "error",
-				});
-			}
+			const res = await deleteComment(commentId);
+			if (!res.data.success)
+				return handleToastError(res.data.message, "Feedback Portfolio");
 
-			toast({
-				title: "Comment",
-				description: response.data.message,
-				status: "success",
-			});
-			navigate(0);
+			handleToastSuccess(res.data.message, "Feedback Portfolio");
+			refreshParent();
 		} catch (error: any) {
-			console.error(error);
-			toast({
-				title: "Unexpected error",
-				description: error.message,
-				status: "error",
-			});
+			handleToastError(error.message);
 		}
 	};
 
@@ -83,6 +64,11 @@ function Comment({ data }: Props) {
 			<p className="mt-2">{comment}</p>
 		</div>
 	);
+}
+
+interface IProps {
+	data: IComment;
+	refreshParent: () => void;
 }
 
 export default Comment;

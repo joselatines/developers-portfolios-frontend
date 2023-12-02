@@ -14,6 +14,6 @@ export const createRatingToPortfolio = async (
 		headers: { Authorization: `Bearer ${user.token}` },
 	};
 
-	const response = await axios.post(`${API_URL}/portfolios/ratings`, body, options);
-	return response;
+	const res = await axios.post(`${API_URL}/portfolios/ratings`, body, options);
+	return res;
 };

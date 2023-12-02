@@ -13,6 +13,7 @@ export interface IUserContext {
 	email: string;
 	role: IRoles;
 	token: string;
+	expiresAt: Date;
 	profilePic: string;
 	provider: string | "github" | "google" | "twitter";
 }

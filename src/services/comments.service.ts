@@ -4,8 +4,6 @@ import { API_URL } from "../CONST";
 export const deleteComment = async (
 	commentId: string
 ): Promise<AxiosResponse> => {
-	const response = await axios.delete(
-		`${API_URL}/portfolios/comments/${commentId}`
-	);
-	return response;
+	const res = await axios.delete(`${API_URL}/portfolios/comments/${commentId}`);
+	return res;
 };

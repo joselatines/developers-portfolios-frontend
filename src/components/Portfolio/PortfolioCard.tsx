@@ -7,7 +7,7 @@ import { DEFAULT_PORTFOLIO_PIC } from "../../CONST";
 import { getRateColor, getTypeColor } from "../../shared/utils/uiHelpers";
 import OwnerFunctions from "./OwnerFunctions";
 
-function PortfolioCard({ portfolio }: Props) {
+function PortfolioCard({ portfolio }: IProps) {
 	const { images, title, description, type, User, avg_rating, id } = portfolio;
 	const [isPortfolioOwner] = usePortfolioOwnership(User.id);
 
@@ -51,7 +51,7 @@ function PortfolioCard({ portfolio }: Props) {
 	);
 }
 
-interface Props {
+interface IProps {
 	portfolio: IPortfolio;
 }
 
