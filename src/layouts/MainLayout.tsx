@@ -3,7 +3,7 @@ import Navigation from "../components/Navigation";
 function MainLayout({ children }: any) {
 	return (
 		<>
-			<Navigation /> {children}
+			<Navigation links={null}/> {children}
 		</>
 	);
 }

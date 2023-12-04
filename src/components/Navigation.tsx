@@ -19,7 +19,7 @@ import { AuthContext } from "../contexts/auth/AuthContext";
 import { DEFAULT_PROFILE_PIC } from "../CONST";
 
 interface IProps {
-	links: LinkElement[];
+	links: LinkElement[] | null;
 }
 
 export default function Navigation({ links }: IProps) {
@@ -59,7 +59,7 @@ export default function Navigation({ links }: IProps) {
 							spacing={4}
 							display={{ base: "none", md: "flex" }}
 						>
-							<LinksComponent links={links} />
+							{links && <LinksComponent links={links} />}
 						</HStack>
 					</HStack>
 					{user ? (
@@ -105,7 +105,7 @@ export default function Navigation({ links }: IProps) {
 				{isOpen ? (
 					<Box pb={4} display={{ md: "none" }}>
 						<Stack as={"nav"} spacing={4}>
-							<LinksComponent links={links} />
+							{links && <LinksComponent links={links} />}
 						</Stack>
 					</Box>
 				) : null}
