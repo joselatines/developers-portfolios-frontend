@@ -37,15 +37,15 @@ function MeRoute() {
 
 	return (
 		<>
-			<div className="flex gap-3 justify-right">
+			<div className="flex gap-3 justify-end">
 				<Button colorScheme="whatsapp">
 					<Link to="/me/portfolios/create">Create new portfolio</Link>
 				</Button>
 			</div>
-			<section className="grid">
+			<section className="grid gap-4 my-2">
 				<Avatar name={githubUsername} size="2xl" src={profilePic} />
 				<Heading>{githubUsername}</Heading>
-				<span className="text-lg font-semibold mb-10">{email}</span>
+				<span className="text-lg font-semibold">{email}</span>
 
 				<EditMeProfileForm
 					refreshParent={handleRefresh}

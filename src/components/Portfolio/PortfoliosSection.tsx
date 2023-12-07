@@ -2,11 +2,8 @@ import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 
 import PortfolioCard from "./PortfolioCard";
 
-interface IProps {
-	portfolios: IPortfolio[];
-}
-
 function PortfoliosSection({ portfolios }: IProps) {
+	if (portfolios.length <= 0) return <span>No portfolios added</span>;
 	return (
 		<section className="flex gap-5 flex-wrap">
 			{portfolios.map(p => (
@@ -14,6 +11,10 @@ function PortfoliosSection({ portfolios }: IProps) {
 			))}
 		</section>
 	);
+}
+
+interface IProps {
+	portfolios: IPortfolio[];
 }
 
 export default PortfoliosSection;

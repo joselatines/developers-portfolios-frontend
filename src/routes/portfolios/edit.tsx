@@ -2,13 +2,15 @@ import { useParams } from "react-router-dom";
 import EditPortfolioForm from "../../components/Forms/Portfolio/EditPortfolioForm";
 import { useFetch } from "../../hooks/useFetch";
 import { API_URL } from "../../CONST";
+import ErrorHandler from "../../components/shared/Error";
+import LoaderHandler from "../../components/shared/Loader";
 
 function PortfolioEditRoute() {
 	const { id } = useParams();
 	const { data, error } = useFetch(`${API_URL}/portfolios/${id}`);
 
-	if (error) return <div>Error: {error.message}</div>;
-	if (!data) return <div>Loading...</div>;
+	if (error) return <ErrorHandler errorMessage={error.message} />;
+	if (!data) return <LoaderHandler />;
 
 	const initialValues = {
 		images: data.data.images,
@@ -21,8 +23,6 @@ function PortfolioEditRoute() {
 
 	if (id)
 		return <EditPortfolioForm initialValues={initialValues} portfolioId={id} />;
-
-	
 }
 
 export default PortfolioEditRoute;

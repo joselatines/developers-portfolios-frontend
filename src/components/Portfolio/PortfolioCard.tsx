@@ -6,19 +6,25 @@ import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 import { DEFAULT_PORTFOLIO_PIC } from "../../CONST";
 import { getRateColor, getTypeColor } from "../../shared/utils/uiHelpers";
 import OwnerFunctions from "./OwnerFunctions";
+import { useLocation } from "react-router-dom";
 
 function PortfolioCard({ portfolio }: IProps) {
 	const { images, title, description, type, User, avg_rating, id } = portfolio;
-	const [isPortfolioOwner] = usePortfolioOwnership(User.id);
+	const [isPortfolioOwner] = usePortfolioOwnership(User.id); // actual portfolio is from logged user
+	const location = useLocation();
+	const { pathname } = location;
+
+	const showOwnerFunctions = isPortfolioOwner && pathname === "/me";
+	const portfolioOwnerName = isPortfolioOwner ? "You" : User.githubUsername;
 
 	return (
-		<article className="max-w-md mx-auto overflow-hidden">
+		<article className="max-w-md w-96 overflow-hidden">
 			<Popup
 				trigger={
 					<img
-						className="w-full h-64 object-cover cursor-pointer"
+						className="w-full h-64 object-cover mb-1 cursor-pointer"
 						src={images[0] || DEFAULT_PORTFOLIO_PIC}
-						alt="Portfolio"
+						alt={`Portfolio ${title} by @${User.githubUsername}`}
 					/>
 				}
 				modal
@@ -26,26 +32,31 @@ function PortfolioCard({ portfolio }: IProps) {
 				<PortfolioModal data={portfolio} />
 			</Popup>
 
-			{isPortfolioOwner && <OwnerFunctions portfolioId={id} />}
+			<article>
+				<h4 className="font-medium text-lg">{title}</h4>
 
-			{/* Portfolio details section */}
-			<section className="p-1 flex items-center justify-between">
-				<article>
-					<h4 className="font-medium text-lg">{title}</h4>
+				<a
+					href={`https://github.com/${User.githubUsername}`}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="opacity-95 text-sm"
+				>
+					{portfolioOwnerName}
+				</a>
+			</article>
 
-					<a
-						href={`https://github.com/${User.githubUsername}`}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="opacity-95"
-					>
-						{User.githubUsername}
-					</a>
-				</article>
-				<h1>{description}</h1>
+			<span className="truncate text-">{description}</span>
 
-				<Tag colorScheme={getRateColor(avg_rating)}>{avg_rating}/10</Tag>
-				<Tag colorScheme={getTypeColor(type)}>{type}</Tag>
+			<section className="flex justify-between items-center my-2">
+				<div className="flex gap-1">
+					<Tag size="sm" colorScheme={getRateColor(avg_rating)}>
+						{avg_rating}/10
+					</Tag>
+					<Tag size="sm" colorScheme={getTypeColor(type)}>
+						{type}
+					</Tag>
+				</div>
+				{showOwnerFunctions && <OwnerFunctions portfolioId={id} />}
 			</section>
 		</article>
 	);

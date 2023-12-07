@@ -5,5 +5,7 @@ export interface IComment {
 	comment: string;
 	rating: number;
 	portfolio_id: string;
-	User: IUser; 
+	createdAt: string;
+	updatedAt: string;
+	User: IUser;
 }

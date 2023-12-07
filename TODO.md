@@ -1,5 +1,6 @@
 # TODO
 - cache calling portfolios
-- monstrar ui inabilitada cuando se hace un request
 - manejar imagenes
-- cerrar sesion luego del tiempo cumplido
+- mostrar tu comentari actual (editarlo en vez de enviarlo)
+- mostrar tu comentario de primero
+- refactor deleteing portfolio by making re render portfolios instead of refreshing the page

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
@@ -8,31 +9,41 @@ import useCustomToast from "../../hooks/useCustomToast";
 function OwnerFunctions({ portfolioId }: { portfolioId: string }) {
 	const { handleToastSuccess, handleToastError } = useCustomToast();
 	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = useState(false);
+
 	const handleDelete = async (portfolioId: string) => {
 		try {
+			setIsLoading(true);
 			const res = await deletePortfolio(portfolioId);
-			if (!res.data.success)
+			if (!res.data.success) {
+				setIsLoading(false);
 				return handleToastError(res.data.message, "Portfolio");
+			}
 
 			handleToastSuccess(res.data.message, "Portfolio");
-			navigate("/me");
+			navigate(0)
 		} catch (error: any) {
 			handleToastError(error.message);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 	return (
-		<div>
+		<div className="flex gap-3 justify-end">
 			<Link to={`/me/portfolios/edit/${portfolioId}`}>
-				<Button>
+				<Button size="sm">
 					<FaRegEdit />
 				</Button>
 			</Link>
 			<Button
-				size="xs"
 				colorScheme="red"
+				size="sm"
+				disabled={isLoading}
+				isLoading={isLoading}
+				loadingText="Deleting portfolio..."
 				onClick={() => handleDelete(portfolioId)}
 			>
-				<MdDelete color="white" size={12} />
+				<MdDelete color="white" />
 			</Button>
 		</div>
 	);

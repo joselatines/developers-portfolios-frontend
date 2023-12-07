@@ -6,9 +6,10 @@ import { usePortfolioOwnership } from "../../../hooks/usePortfolioOwnership";
 import { MdDelete } from "react-icons/md";
 import { deleteComment } from "../../../services/comments.service";
 import useCustomToast from "../../../hooks/useCustomToast";
+import { formatDate } from "../../../shared/utils/time";
 
 function Comment({ data, refreshParent }: IProps) {
-	const { User, comment, rating, id } = data;
+	const { User, comment, rating, id, createdAt, updatedAt } = data;
 	const [isPortfolioOwner] = usePortfolioOwnership(User.id);
 	const { handleToastSuccess, handleToastError } = useCustomToast();
 
@@ -26,12 +27,20 @@ function Comment({ data, refreshParent }: IProps) {
 	};
 
 	return (
-		<div className="border relative p-3 ml-3 my-3 bg-white text-slate-950">
+		<div className="border relative pb-12 p-3 ml-3 my-3 bg-white text-slate-950">
 			<Tag
 				className="absolute top-3 right-3"
 				colorScheme={getRateColor(rating)}
 			>
 				{rating}/10
+			</Tag>
+
+			<Tag
+				size="sm"
+				className="absolute bottom-3 right-13"
+				colorScheme={"gray"}
+			>
+				{formatDate(updatedAt || createdAt)}
 			</Tag>
 
 			{isPortfolioOwner && (
@@ -57,7 +66,7 @@ function Comment({ data, refreshParent }: IProps) {
 				/>
 
 				<h3 className="font-bold">
-					{isPortfolioOwner ? "You" : User.githubUsername}
+					{isPortfolioOwner ? "You" : "@" + User.githubUsername}
 				</h3>
 			</a>
 

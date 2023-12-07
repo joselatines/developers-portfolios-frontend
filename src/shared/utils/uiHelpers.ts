@@ -16,7 +16,7 @@ export const getTypeColor = (type: string) => {
 		case frontend:
 			return "purple";
 		case fullstack:
-			return "gold";
+			return "cyan";
 		case mobile:
 			return "green";
 		case software:
