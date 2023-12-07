@@ -54,6 +54,8 @@ function SignUpForm() {
 
 			<Button
 				disabled={formik.isSubmitting}
+				isLoading={formik.isSubmitting}
+				loadingText="Signing up..."
 				colorScheme="twitter"
 				type="submit"
 			>

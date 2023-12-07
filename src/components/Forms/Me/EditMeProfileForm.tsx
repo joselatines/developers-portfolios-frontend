@@ -5,7 +5,6 @@ import InputFields from "../InputFields";
 import { editUser } from "../../../services/users.service";
 import useCustomToast from "../../../hooks/useCustomToast";
 
-
 function EditMeProfileForm({ refreshParent, initialValues, userId }: IProps) {
 	const { handleToastSuccess, handleToastError } = useCustomToast();
 	const { validationSchema, fields } = formikConfig;
@@ -33,6 +32,8 @@ function EditMeProfileForm({ refreshParent, initialValues, userId }: IProps) {
 			<InputFields formik={formik} fields={fields} />
 			<Button
 				disabled={formik.isSubmitting}
+				isLoading={formik.isSubmitting}
+				loadingText="Editing profile..."
 				colorScheme="twitter"
 				type="submit"
 			>
@@ -51,6 +52,5 @@ interface IProps {
 	};
 	userId: string;
 }
-
 
 export default EditMeProfileForm;

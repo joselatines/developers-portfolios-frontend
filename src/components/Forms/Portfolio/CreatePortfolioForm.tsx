@@ -27,9 +27,9 @@ function CreatePortfolioForm() {
 			try {
 				const res = await createPortfolio(valuesParsed);
 				if (!res.data.success)
-					return handleToastError(res.data.message, "Editing info");
+					return handleToastError(res.data.message, "Creating portfolio");
 
-				handleToastSuccess(res.data.message, "Editing info");
+				handleToastSuccess(res.data.message, "Creating portfolio");
 				navigate("/me");
 			} catch (error: any) {
 				handleToastError(error.message);
@@ -44,6 +44,8 @@ function CreatePortfolioForm() {
 			<Button
 				colorScheme="twitter"
 				disabled={formik.isSubmitting}
+				isLoading={formik.isSubmitting}
+				loadingText="Creating portfolio..."
 				type="submit"
 			>
 				Create portfolio

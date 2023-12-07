@@ -44,6 +44,8 @@ function LoginForm() {
 
 			<Button
 				disabled={formik.isSubmitting}
+				isLoading={formik.isSubmitting}
+				loadingText="Logging, please wait"
 				colorScheme="twitter"
 				type="submit"
 			>

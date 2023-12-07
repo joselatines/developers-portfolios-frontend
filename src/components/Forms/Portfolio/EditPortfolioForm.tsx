@@ -18,9 +18,9 @@ function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 	const handleFormSubmit = async (values: IInitialValues) => {
 		const valuesParsed: any = { ...values, images };
 
-		if (!values.images || values.images.length < 1) {
+		/* if (!values.images || values.images.length < 1) {
 			return alert("At least 1 image thumbnail is required");
-		}
+		} */
 
 		try {
 			const res = await editPortfolio(valuesParsed, portfolioId);
@@ -50,6 +50,8 @@ function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 			<Button
 				colorScheme="twitter"
 				disabled={formik.isSubmitting}
+				isLoading={formik.isSubmitting}
+				loadingText="Editing portfolio..."
 				type="submit"
 			>
 				Edit portfolio
