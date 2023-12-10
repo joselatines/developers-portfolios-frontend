@@ -23,9 +23,10 @@ function CreatePortfolioForm() {
 			const valuesParsed: CreatePortfolio = { ...values, images };
 			if (!values.images || values.images.length < 0)
 				return alert("At least 1 image thumbnail is required");
-			
+		
 			try {
 				const res = await createPortfolio(valuesParsed);
+
 				if (!res.data.success)
 					return handleToastError(res.data.message, "Creating portfolio");
 
