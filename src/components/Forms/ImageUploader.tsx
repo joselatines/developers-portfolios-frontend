@@ -14,9 +14,11 @@ export function ImageUploader({ images, setImages, maxNumber = 10 }: IProps) {
 
 	const onChange = (imageList: ImageListType, addUpdateIndex: any) => {
 		// data for submit
-		console.info(imageList, addUpdateIndex);
+		console.info({ onChange: { imageList, addUpdateIndex } });
 		setImages(imageList);
 	};
+
+	const multipleImagesAllowed = maxNumber > 1 ? true : false;
 
 	return (
 		<div className="App">
@@ -25,7 +27,7 @@ export function ImageUploader({ images, setImages, maxNumber = 10 }: IProps) {
 			</Text>
 
 			<ImageUploading
-				multiple
+				multiple={multipleImagesAllowed}
 				value={images}
 				onChange={onChange}
 				maxNumber={maxNumber}

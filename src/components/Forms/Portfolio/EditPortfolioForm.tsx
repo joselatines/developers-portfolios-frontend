@@ -46,7 +46,7 @@ function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
-			<ImageUploader images={images} setImages={setImages} />
+			<ImageUploader images={images} setImages={setImages} maxNumber={1}  />
 			<Button
 				colorScheme="twitter"
 				disabled={formik.isSubmitting}

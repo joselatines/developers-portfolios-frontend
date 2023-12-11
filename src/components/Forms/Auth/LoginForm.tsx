@@ -12,8 +12,8 @@ function LoginForm() {
 	const { validationSchema, initialValues, fields } = loginConfig;
 	const { setUser } = useContext(AuthContext);
 	const navigate = useNavigate();
-
 	const { handleToastSuccess, handleToastError } = useCustomToast();
+
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
@@ -29,11 +29,10 @@ function LoginForm() {
 
 				handleToastSuccess(res.data.message, "Authentication");
 				setUser(res.data.data);
-				console.log(res.data.data);
+
 				navigate("/");
 			} catch (error: any) {
-				console.error(error);
-				handleToastError(error.message, "Authentication");
+				handleToastError(error.message);
 			}
 		},
 	});

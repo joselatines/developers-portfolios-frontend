@@ -9,8 +9,9 @@ export const PORTFOLIO_TYPES = {
 
 type IPortfolioType = keyof typeof PORTFOLIO_TYPES;
 
+
 export interface CreatePortfolio {
-	images: File[];
+	images: File[] | string | any;
 	website_link: string;
 	github_link: string;
 	type: IPortfolioType | string;
