@@ -2,31 +2,26 @@ import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../CONST";
 import { CreatePortfolio } from "../shared/interfaces/portfolio.interface";
 import { getUserFromLocalStorage } from "../contexts/auth/helper";
+import { convertFileToBase64 } from "../shared/utils/base64";
 
 export const createPortfolio = async (
-	bodyData: CreatePortfolio
+	portfolioData: CreatePortfolio
 ): Promise<AxiosResponse> => {
 	const user = getUserFromLocalStorage();
-	// change array images to single file
-	const bodyParsed = { ...bodyData, images: bodyData.images[0].file };
 	if (!user) throw new Error("User in localStorage was not found");
 
-	const formData = new FormData();
-
-	// Append each field from the bodyData to the FormData object
-	Object.entries(bodyParsed).forEach(([key, value]) => {
-		formData.append(key, value);
-	});
+	const imageBase64 = await convertFileToBase64(portfolioData.images[0].file);
 
 	const options = {
 		headers: {
 			Authorization: `Bearer ${user.token}`,
-			"Content-Type": "multipart/form-data", // Set content type to multipart/form-data
+			"Content-Type": "multipart/form-data",
 		},
 	};
 
+	const body = { ...portfolioData, images: imageBase64 };
 
-	const res = await axios.post(`${API_URL}/portfolios`, formData, options);
+	const res = await axios.post(`${API_URL}/portfolios`, body, options);
 	return res;
 };
 
