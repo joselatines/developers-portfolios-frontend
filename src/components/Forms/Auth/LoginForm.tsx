@@ -24,7 +24,7 @@ function LoginForm() {
 
 				if (!res.data.success) {
 					setUser(null);
-					handleToastError(res.data.message, "Authentication");
+					return handleToastError(res.data.message, "Authentication");
 				}
 
 				handleToastSuccess(res.data.message, "Authentication");

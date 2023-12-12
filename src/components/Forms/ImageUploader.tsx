@@ -7,7 +7,7 @@ interface IProps {
 	images: ImageListType;
 	setImages: (images: ImageListType | any) => void; // initialize in []
 	maxNumber?: number;
-	note?: string ;
+	note?: string;
 }
 
 export function ImageUploader({
@@ -49,7 +49,7 @@ export function ImageUploader({
 					dragProps,
 				}) => (
 					<div className="upload__image-wrapper">
-						<span>{note}</span>
+						<span className="text-sm">{note}</span>
 						<div className="flex gap-3">
 							<Button
 								style={isDragging ? { color: "red" } : undefined}

@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { editPortfolio } from "../../../services/portfolios.service";
 
-import { IInitialValues, createPortfolioConfig } from "./config";
+import { IImageState, IInitialValues, createPortfolioConfig } from "./config";
 import InputFields from "../InputFields";
 import { ImageUploader } from "../ImageUploader";
 import { useNavigate } from "react-router-dom";
@@ -11,17 +11,12 @@ import useCustomToast from "../../../hooks/useCustomToast";
 
 function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 	const { validationSchema, fields } = createPortfolioConfig;
-	const [images, setImages] = useState([]);
+	const [images, setImages] = useState<IImageState[]>([]);
 	const navigate = useNavigate();
 	const { handleToastSuccess, handleToastError } = useCustomToast();
 
 	const handleFormSubmit = async (values: IInitialValues) => {
-		const valuesParsed: any = { ...values, images };
-
-		/* if (!values.images || values.images.length < 1) {
-			return alert("At least 1 image thumbnail is required");
-		} */
-
+		const valuesParsed = { ...values, thumbnail: images[0].file };
 		try {
 			const res = await editPortfolio(valuesParsed, portfolioId);
 
@@ -46,7 +41,18 @@ function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
-			<ImageUploader images={images} setImages={setImages} maxNumber={1}  />
+			<section className="flex gap-10 items-start">
+				<ImageUploader images={images} setImages={setImages} maxNumber={1} />
+
+				<div>
+					<span className="font-medium">Current image</span>
+					<img
+						width={100}
+						src={initialValues.thumbnail}
+						alt={`${initialValues.title} thumbnail`}
+					/>
+				</div>
+			</section>
 			<Button
 				colorScheme="twitter"
 				disabled={formik.isSubmitting}

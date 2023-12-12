@@ -1,7 +1,12 @@
 import * as Yup from "yup";
 
+export interface IImageState {
+	data_url: string;
+	file: File;
+}
+
 export interface IInitialValues {
-	images: string[];
+	thumbnail: string;
 	website_link: string;
 	github_link: string;
 	type: string;
@@ -20,7 +25,7 @@ export const createPortfolioConfig = {
 		type: Yup.string().required("Type is required"),
 	}),
 	initialValues: {
-		images: [""],
+		thumbnail: [""],
 		website_link: "",
 		github_link: "",
 		type: "",

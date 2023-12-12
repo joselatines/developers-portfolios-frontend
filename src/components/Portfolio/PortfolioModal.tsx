@@ -4,7 +4,7 @@ import CommentsSection from "./Comments/CommentsSection";
 import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 
 function PortfolioModal({ data }: IProps) {
-	const { images, title, description, User, github_link, website_link, id } =
+	const { thumbnail, title, description, User, github_link, website_link, id } =
 		data;
 
 	return (
@@ -14,7 +14,7 @@ function PortfolioModal({ data }: IProps) {
 				<p className="mb-4 mt-5">{description}</p>
 				<img
 					className="w-full object-cover h-[100%] md:hidden"
-					src={images[0]}
+					src={thumbnail}
 					alt="Portfolio"
 				/>
 				<ul className="flex gap-2 wrap my-5">
@@ -44,7 +44,7 @@ function PortfolioModal({ data }: IProps) {
 
 			<img
 				className={`w-full col-span-2 object-contain h-[100%] hidden md:block`}
-				src={images[0]}
+				src={thumbnail[0]}
 				alt="Portfolio"
 			/>
 		</article>

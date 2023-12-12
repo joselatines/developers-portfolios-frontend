@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import { createPortfolioConfig } from "./config";
+import { IImageState, createPortfolioConfig } from "./config";
 import InputFields from "../InputFields";
 import { ImageUploader } from "../ImageUploader";
 import { useNavigate } from "react-router-dom";
 import { createPortfolio } from "../../../services/portfolios.service";
-import { CreatePortfolio } from "../../../shared/interfaces/portfolio.interface";
 import useCustomToast from "../../../hooks/useCustomToast";
 
 function CreatePortfolioForm() {
 	const { validationSchema, initialValues, fields } = createPortfolioConfig;
-	const [images, setImages] = useState([]);
+	const [images, setImages] = useState<IImageState[]>([]);
 	const navigate = useNavigate();
 	const { handleToastError, handleToastSuccess } = useCustomToast();
 
@@ -20,10 +19,10 @@ function CreatePortfolioForm() {
 		validationSchema,
 
 		onSubmit: async values => {
-			const valuesParsed: CreatePortfolio = { ...values, images };
-			if (!values.images || values.images.length < 0)
+			const valuesParsed = { ...values, thumbnail: images[0].file };
+			if (!values.thumbnail || values.thumbnail.length < 0)
 				return alert("At least 1 image thumbnail is required");
-		
+
 			try {
 				const res = await createPortfolio(valuesParsed);
 

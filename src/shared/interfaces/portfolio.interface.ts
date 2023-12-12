@@ -1,4 +1,5 @@
 import { IUser } from "./user.interface";
+
 export const PORTFOLIO_TYPES = {
 	backend: "backend",
 	frontend: "frontend",
@@ -9,9 +10,8 @@ export const PORTFOLIO_TYPES = {
 
 type IPortfolioType = keyof typeof PORTFOLIO_TYPES;
 
-
 export interface CreatePortfolio {
-	images: File[] | string | any;
+	thumbnail: File | string;
 	website_link: string;
 	github_link: string;
 	type: IPortfolioType | string;
@@ -24,4 +24,5 @@ export interface IPortfolio extends CreatePortfolio {
 	title: string;
 	User: IUser;
 	avg_rating: number;
+	thumbnail: string;
 }

@@ -13,7 +13,7 @@ function PortfolioEditRoute() {
 	if (!data) return <LoaderHandler />;
 
 	const initialValues = {
-		images: data.data.images,
+		thumbnail: data.data.thumbnail,
 		website_link: data.data.website_link,
 		github_link: data.data.github_link,
 		type: data.data.type,

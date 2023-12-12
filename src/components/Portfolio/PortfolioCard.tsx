@@ -8,7 +8,7 @@ import OwnerFunctions from "./OwnerFunctions";
 import { useLocation } from "react-router-dom";
 
 function PortfolioCard({ portfolio }: IProps) {
-	const { images, title, description, type, User, avg_rating, id } = portfolio;
+	const { thumbnail, title, description, type, User, avg_rating, id } = portfolio;
 	const [isPortfolioOwner] = usePortfolioOwnership(User.id); // actual portfolio is from logged user
 	const location = useLocation();
 	const { pathname } = location;
@@ -22,7 +22,7 @@ function PortfolioCard({ portfolio }: IProps) {
 				trigger={
 					<img
 						className="w-full h-64 object-cover mb-1 cursor-pointer"
-						src={images[0]}
+						src={thumbnail}
 						alt={`Portfolio ${title} by @${User.githubUsername}`}
 					/>
 				}
