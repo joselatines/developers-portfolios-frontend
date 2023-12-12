@@ -47,7 +47,7 @@ function RatePortfolioForm({ portfolioId, refreshParent }: IProps) {
 
   return (
     <form className="grid">
-      <Box as="span" className="text-xl font-bold mb-2">
+      <Box as="span" className="text-lg font-bold mb-2">
         Give a comment
       </Box>
       <Textarea

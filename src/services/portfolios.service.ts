@@ -5,12 +5,12 @@ import { getUserFromLocalStorage } from "../contexts/auth/helper";
 import { convertFileToBase64 } from "../shared/utils/base64";
 
 export const createPortfolio = async (
-	portfolioData: CreatePortfolio
+	bodyData: CreatePortfolio
 ): Promise<AxiosResponse> => {
 	const user = getUserFromLocalStorage();
 	if (!user) throw new Error("User in localStorage was not found");
 
-	const imageBase64 = await convertFileToBase64(portfolioData.images[0].file);
+	const imageBase64 = await convertFileToBase64(bodyData.images[0].file);
 
 	const options = {
 		headers: {
@@ -19,7 +19,7 @@ export const createPortfolio = async (
 		},
 	};
 
-	const body = { ...portfolioData, images: imageBase64 };
+	const body = { ...bodyData, images: imageBase64 };
 
 	const res = await axios.post(`${API_URL}/portfolios`, body, options);
 	return res;
@@ -30,14 +30,21 @@ export const editPortfolio = async (
 	id: string
 ): Promise<AxiosResponse> => {
 	const user = getUserFromLocalStorage();
-
 	if (!user) throw new Error("User in localStorage was not found");
 
+	const imageBase64 = await convertFileToBase64(bodyData.images[0].file);
+
 	const options = {
-		headers: { Authorization: `Bearer ${user.token}` },
+		headers: {
+			Authorization: `Bearer ${user.token}`,
+			"Content-Type": "multipart/form-data",
+		},
 	};
 
-	const res = await axios.put(`${API_URL}/portfolios/${id}`, bodyData, options);
+	const body = { ...bodyData, images: imageBase64 };
+
+	console.log({ body });
+	const res = await axios.put(`${API_URL}/portfolios/${id}`, body, options);
 	return res;
 };
 

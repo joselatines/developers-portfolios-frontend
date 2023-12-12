@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/auth/AuthContext";
-import { DEFAULT_PROFILE_PIC } from "../CONST";
 
 interface IProps {
 	links: LinkElement[] | null;
@@ -76,7 +75,7 @@ export default function Navigation({ links }: IProps) {
 						onClick={isOpen ? onClose : onOpen}
 					/>
 					<HStack spacing={8} alignItems={"center"}>
-						<Box className="text-lg font-bold">
+						<Box className="text-xl font-bold">
 							<Link to="/">Developers Portfolio</Link>
 						</Box>
 						<HStack
@@ -118,7 +117,7 @@ function ProfileMenu({ handleLogout, user }: any) {
 				cursor={"pointer"}
 				minW={0}
 			>
-				<Avatar size={"sm"} src={user.profilePic || DEFAULT_PROFILE_PIC} />
+				<Avatar size={"sm"} src={user.profilePic} />
 			</MenuButton>
 
 			<MenuList>

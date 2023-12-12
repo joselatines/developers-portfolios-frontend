@@ -7,9 +7,15 @@ interface IProps {
 	images: ImageListType;
 	setImages: (images: ImageListType | any) => void; // initialize in []
 	maxNumber?: number;
+	note?: string ;
 }
 
-export function ImageUploader({ images, setImages, maxNumber = 10 }: IProps) {
+export function ImageUploader({
+	images,
+	setImages,
+	maxNumber = 10,
+	note = "Recommended up to 1320x720",
+}: IProps) {
 	// 	const [images, setImages] = useState([]);
 
 	const onChange = (imageList: ImageListType, addUpdateIndex: any) => {
@@ -43,6 +49,7 @@ export function ImageUploader({ images, setImages, maxNumber = 10 }: IProps) {
 					dragProps,
 				}) => (
 					<div className="upload__image-wrapper">
+						<span>{note}</span>
 						<div className="flex gap-3">
 							<Button
 								style={isDragging ? { color: "red" } : undefined}

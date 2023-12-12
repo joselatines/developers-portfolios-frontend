@@ -3,7 +3,6 @@ import { Tag } from "@chakra-ui/react";
 import { usePortfolioOwnership } from "../../hooks/usePortfolioOwnership";
 import PortfolioModal from "./PortfolioModal";
 import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
-import { DEFAULT_PORTFOLIO_PIC } from "../../CONST";
 import { getRateColor, getTypeColor } from "../../shared/utils/uiHelpers";
 import OwnerFunctions from "./OwnerFunctions";
 import { useLocation } from "react-router-dom";
@@ -23,7 +22,7 @@ function PortfolioCard({ portfolio }: IProps) {
 				trigger={
 					<img
 						className="w-full h-64 object-cover mb-1 cursor-pointer"
-						src={images[0] || DEFAULT_PORTFOLIO_PIC}
+						src={images[0]}
 						alt={`Portfolio ${title} by @${User.githubUsername}`}
 					/>
 				}
@@ -45,7 +44,7 @@ function PortfolioCard({ portfolio }: IProps) {
 				</a>
 			</article>
 
-			<span className="truncate text-">{description}</span>
+			<span className="">{description.slice(0, 43)}...</span>
 
 			<section className="flex justify-between items-center my-2">
 				<div className="flex gap-1">

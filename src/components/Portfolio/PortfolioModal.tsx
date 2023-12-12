@@ -8,9 +8,9 @@ function PortfolioModal({ data }: IProps) {
 		data;
 
 	return (
-		<article className="md:grid grid-cols-2 h-[90vh] overflow-auto">
-			<section className="p-8">
-				<h2 className="text-5xl font-bold">{title}</h2>
+		<article className="md:grid grid-cols-3 h-[80vh] overflow-auto">
+			<section className="p-8 cols-span-1">
+				<h2 className="text-2xl font-bold">{title}</h2>
 				<p className="mb-4 mt-5">{description}</p>
 				<img
 					className="w-full object-cover h-[100%] md:hidden"
@@ -43,7 +43,7 @@ function PortfolioModal({ data }: IProps) {
 			</section>
 
 			<img
-				className={`w-full object-cover h-[100%] hidden md:block`}
+				className={`w-full col-span-2 object-contain h-[100%] hidden md:block`}
 				src={images[0]}
 				alt="Portfolio"
 			/>

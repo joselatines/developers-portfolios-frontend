@@ -55,7 +55,7 @@ const CommentsSection: React.FC<IProps> = ({ portfolioId }) => {
         <FaEye /> {showComments ? "Hide comments" : "Show comments"}
       </Button>
 
-      <span className="text-xl font-bold">Comment section</span>
+      <span className="text-lg font-bold">Comment section</span>
       <section className={showComments ? "h-56 overflow-auto" : "hidden"}>
         <div className="flex flex-col">
           {data.data.map((comment: IComment) => (
