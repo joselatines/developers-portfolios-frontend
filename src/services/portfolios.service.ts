@@ -42,7 +42,6 @@ export const editPortfolio = async (
 	};
 
 	const body = { ...bodyData, thumbnail: thumbnail };
-	console.log({ body });
 	const res = await axios.put(`${API_URL}/portfolios/${id}`, body, options);
 	return res;
 };

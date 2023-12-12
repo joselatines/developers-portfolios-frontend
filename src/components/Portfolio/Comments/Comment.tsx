@@ -27,7 +27,7 @@ function Comment({ data, refreshParent }: IProps) {
 	};
 
 	return (
-		<div className="border relative pb-12 p-3 ml-3 my-3 bg-white text-slate-950">
+		<div className="border relative pb-12 p-3  my-3 bg-white text-slate-950">
 			<Tag
 				className="absolute top-3 right-3"
 				colorScheme={getRateColor(rating)}

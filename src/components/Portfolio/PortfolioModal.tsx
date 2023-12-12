@@ -12,26 +12,27 @@ function PortfolioModal({ data }: IProps) {
 			<section className="p-8 cols-span-1">
 				<h2 className="text-2xl font-bold">{title}</h2>
 				<p className="mb-4 mt-5">{description}</p>
-				<img
-					className="w-full object-cover h-[100%] md:hidden"
-					src={thumbnail}
-					alt="Portfolio"
-				/>
-				<ul className="flex gap-2 wrap my-5">
-					<li>
-						<a href={User.githubUsername} target="_blank">
+				<ul>
+					<li className="mb-3">
+						{/* <Link to={`/profiles/${User.githubUsername}`}>
+							Created by: {User.githubUsername}
+						</Link> */}
+						Created by:{" "}
+						<a
+							href={`https://github.com/${User.githubUsername}`}
+							target="_blank"
+						>
 							{User.githubUsername}
-							<AiOutlineLink size={32} />
 						</a>
 					</li>
-					<li>
+					<li className="inline-block">
 						<a href={website_link} target="_blank">
 							<AiOutlineLink size={32} />
 						</a>
 					</li>
 					{github_link && (
 						<li>
-							<a target="_blank" href={github_link}>
+							<a target="_blank" className="inline-block" href={github_link}>
 								<BsGithub size={32} />
 							</a>
 						</li>
@@ -44,8 +45,8 @@ function PortfolioModal({ data }: IProps) {
 
 			<img
 				className={`w-full col-span-2 object-contain h-[100%] hidden md:block`}
-				src={thumbnail[0]}
-				alt="Portfolio"
+				src={thumbnail}
+				alt={`Portfolio ${title} by @${User.githubUsername}`}
 			/>
 		</article>
 	);

@@ -50,52 +50,46 @@ export default function Navigation({ links }: IProps) {
 	}, []);
 
 	return (
-		<>
-			<Box
-				position={"fixed"}
-				color={"white"}
-				width={"100vw"}
-				bg={"gray.900"}
-				px={5}
-				zIndex={1000}
-			>
-				<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-					<IconButton
-						size={"md"}
-						aria-label={"Open Menu"}
-						display={{ md: "none" }}
-						onClick={isOpen ? onClose : onOpen}
-					/>
-					<HStack spacing={8} alignItems={"center"}>
-						<Box className="text-xl font-bold">
-							<Link to="/">Developers Portfolio</Link>
-						</Box>
-						<HStack
-							as={"nav"}
-							spacing={4}
-							display={{ base: "none", md: "flex" }}
-						>
-							{links && <LinksComponent links={links} />}
-						</HStack>
-					</HStack>
-					<Flex color={"black"} alignItems={"center"}>
-						{user ? (
-							<ProfileMenu handleLogout={handleLogout} user={user} />
-						) : (
-							<AnonymousMenu />
-						)}
-					</Flex>
-				</Flex>
-
-				{isOpen ? (
-					<Box pb={4} display={{ md: "none" }}>
-						<Stack as={"nav"} spacing={4}>
-							{links && <LinksComponent links={links} />}
-						</Stack>
+		<Box
+			position={"fixed"}
+			color={"white"}
+			width={"100vw"}
+			bg={"gray.900"}
+			px={10}
+			zIndex={1000}
+		>
+			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+				<IconButton
+					size={"md"}
+					aria-label={"Open Menu"}
+					display={{ md: "none" }}
+					onClick={isOpen ? onClose : onOpen}
+				/>
+				<HStack spacing={8} alignItems={"center"}>
+					<Box className="text-xl font-bold">
+						<Link to="/">Developers Portfolio</Link>
 					</Box>
-				) : null}
-			</Box>
-		</>
+					<HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
+						{links && <LinksComponent links={links} />}
+					</HStack>
+				</HStack>
+				<Flex color={"black"} alignItems={"center"}>
+					{user ? (
+						<ProfileMenu handleLogout={handleLogout} user={user} />
+					) : (
+						<AnonymousMenu />
+					)}
+				</Flex>
+			</Flex>
+
+			{isOpen ? (
+				<Box pb={4} display={{ md: "none" }}>
+					<Stack as={"nav"} spacing={4}>
+						{links && <LinksComponent links={links} />}
+					</Stack>
+				</Box>
+			) : null}
+		</Box>
 	);
 }
 

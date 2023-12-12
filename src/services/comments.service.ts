@@ -8,17 +8,25 @@ export const deleteComment = async (
 	const res = await axios.delete(`${API_URL}/portfolios/comments/${commentId}`);
 	return res;
 };
-export const getComments = async (): Promise<AxiosResponse> => {
+export const getComments = async (
+	portfolioId: string
+): Promise<AxiosResponse> => {
 	const user = getUserFromLocalStorage();
 
-	if (!user) throw new Error("User in localStorage was not found");
+	if (!user) {
+		const res = await axios.get(
+			`${API_URL}/portfolios/comments/${portfolioId}`
+		);
+
+		return res;
+	}
 
 	const options = {
-		headers: { Authorization: `Bearer ${user?.token}` },
+		headers: { Authorization: `Bearer ${user.token}` },
 	};
 
 	const res = await axios.get(
-		`${API_URL}/portfolios/comments`,
+		`${API_URL}/portfolios/comments/${portfolioId}`,
 		options
 	);
 	return res;

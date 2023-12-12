@@ -8,7 +8,8 @@ import OwnerFunctions from "./OwnerFunctions";
 import { useLocation } from "react-router-dom";
 
 function PortfolioCard({ portfolio }: IProps) {
-	const { thumbnail, title, description, type, User, avg_rating, id } = portfolio;
+	const { thumbnail, title, description, type, User, avg_rating, id } =
+		portfolio;
 	const [isPortfolioOwner] = usePortfolioOwnership(User.id); // actual portfolio is from logged user
 	const location = useLocation();
 	const { pathname } = location;
@@ -44,7 +45,7 @@ function PortfolioCard({ portfolio }: IProps) {
 				</a>
 			</article>
 
-			<span className="">{description.slice(0, 43)}...</span>
+			<span>{description.slice(0, 43)}...</span>
 
 			<section className="flex justify-between items-center my-2">
 				<div className="flex gap-1">
