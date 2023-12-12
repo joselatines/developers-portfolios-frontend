@@ -21,7 +21,7 @@ function OwnerFunctions({ portfolioId }: { portfolioId: string }) {
 			}
 
 			handleToastSuccess(res.data.message, "Portfolio");
-			navigate(0)
+			navigate('/me')
 		} catch (error: any) {
 			handleToastError(error.message);
 		} finally {

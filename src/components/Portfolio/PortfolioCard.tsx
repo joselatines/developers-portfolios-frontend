@@ -48,8 +48,8 @@ function PortfolioCard({ portfolio }: IProps) {
 
 			<section className="flex justify-between items-center my-2">
 				<div className="flex gap-1">
-					<Tag size="sm" colorScheme={getRateColor(avg_rating)}>
-						{avg_rating}/10
+					<Tag size="sm" colorScheme={getRateColor(avg_rating | 10)}>
+						{avg_rating | 10}/10
 					</Tag>
 					<Tag size="sm" colorScheme={getTypeColor(type)}>
 						{type}

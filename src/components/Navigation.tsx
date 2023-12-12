@@ -13,6 +13,7 @@ import {
 	MenuDivider,
 	useDisclosure,
 	Stack,
+	useToast,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/auth/AuthContext";
@@ -29,12 +30,8 @@ interface LinkElement {
 export default function Navigation({ links }: IProps) {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { user, setUser } = useContext(AuthContext);
-
+	const toast = useToast();
 	const navigate = useNavigate();
-
-	const yourFunction = () => {
-		console.log("Executing your function at the target time!");
-	};
 
 	const handleLogout = () => {
 		setUser(null);
@@ -42,20 +39,15 @@ export default function Navigation({ links }: IProps) {
 	};
 
 	useEffect(() => {
-		if (!user) return;
-		const targetTime = new Date(user.expiresAt);
-
-		const interval = setInterval(() => {
-			const currentTime = new Date();
-
-			if (currentTime >= targetTime) {
-				yourFunction();
-				clearInterval(interval);
-			}
-		}, 1000);
-
-		return () => clearInterval(interval);
-	}, []);
+		toast({
+			title: "Warning",
+			description:
+				"This website is currently on a free plan, so it may take longer to load on the first visit.",
+			isClosable: true,
+			position: "top",
+			colorScheme: "orange",
+		});
+	}, [user]);
 
 	return (
 		<>
