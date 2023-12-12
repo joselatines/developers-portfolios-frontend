@@ -47,7 +47,7 @@ export default function Navigation({ links }: IProps) {
 			position: "top",
 			colorScheme: "orange",
 		});
-	}, [user]);
+	}, []);
 
 	return (
 		<>
