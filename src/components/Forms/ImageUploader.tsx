@@ -28,6 +28,9 @@ export function ImageUploader({
 
 	return (
 		<div className="App">
+			{images.length <= 0 && (
+				<span className="text-red-600">Thumbnail is required</span>
+			)}
 			<Text fontWeight={"medium"} fontSize={"md"} marginBottom={2}>
 				Thumbnails
 			</Text>

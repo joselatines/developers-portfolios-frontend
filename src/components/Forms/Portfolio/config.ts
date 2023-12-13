@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 export interface IImageState {
 	data_url: string;
-	file: File;
+	file: File | any;
 }
 
 export interface IInitialValues {

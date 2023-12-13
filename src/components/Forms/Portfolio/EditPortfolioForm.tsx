@@ -11,12 +11,14 @@ import useCustomToast from "../../../hooks/useCustomToast";
 
 function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 	const { validationSchema, fields } = createPortfolioConfig;
-	const [images, setImages] = useState<IImageState[]>([]);
+	const [images, setImages] = useState<IImageState[]>([
+		{ data_url: initialValues.thumbnail, file: null },
+	]);
 	const navigate = useNavigate();
 	const { handleToastSuccess, handleToastError } = useCustomToast();
 
 	const handleFormSubmit = async (values: IInitialValues) => {
-		const valuesParsed = { ...values, thumbnail: images[0].file };
+		const valuesParsed = { ...values, thumbnail: images[0].data_url };
 		try {
 			const res = await editPortfolio(valuesParsed, portfolioId);
 
@@ -43,15 +45,6 @@ function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 			<InputFields formik={formik} fields={fields} />
 			<section className="flex gap-10 items-start">
 				<ImageUploader images={images} setImages={setImages} maxNumber={1} />
-
-				<div>
-					<span className="font-medium">Current image</span>
-					<img
-						width={100}
-						src={initialValues.thumbnail}
-						alt={`${initialValues.title} thumbnail`}
-					/>
-				</div>
 			</section>
 			<Button
 				colorScheme="twitter"

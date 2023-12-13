@@ -17,6 +17,8 @@ function PortfolioCard({ portfolio }: IProps) {
 	const showOwnerFunctions = isPortfolioOwner && pathname === "/me";
 	const portfolioOwnerName = isPortfolioOwner ? "You" : User.githubUsername;
 
+const aboutPortfolio = description && `${description.slice(0, 43)}...` 
+
 	return (
 		<article className="max-w-md w-96 overflow-hidden">
 			<Popup
@@ -45,7 +47,7 @@ function PortfolioCard({ portfolio }: IProps) {
 				</a>
 			</article>
 
-			<span>{description.slice(0, 43)}...</span>
+			<span>{aboutPortfolio}</span>
 
 			<section className="flex justify-between items-center my-2">
 				<div className="flex gap-1">

@@ -10,7 +10,7 @@ export const createPortfolio = async (
 	const user = getUserFromLocalStorage();
 	if (!user) throw new Error("User in localStorage was not found");
 
-	const imageBase64 = await convertFileToBase64(bodyData.thumbnail as File);
+	// const imageBase64 = await convertFileToBase64(bodyData.thumbnail as File);
 
 	const options = {
 		headers: {
@@ -19,9 +19,9 @@ export const createPortfolio = async (
 		},
 	};
 
-	const body = { ...bodyData, thumbnail: imageBase64 };
+	// const body = { ...bodyData, thumbnail: imageBase64 };
 
-	const res = await axios.post(`${API_URL}/portfolios`, body, options);
+	const res = await axios.post(`${API_URL}/portfolios`, bodyData, options);
 	return res;
 };
 
@@ -32,8 +32,6 @@ export const editPortfolio = async (
 	const user = getUserFromLocalStorage();
 	if (!user) throw new Error("User in localStorage was not found");
 
-	const thumbnail = await getThumbnail(bodyData.thumbnail as File);
-
 	const options = {
 		headers: {
 			Authorization: `Bearer ${user.token}`,
@@ -41,8 +39,7 @@ export const editPortfolio = async (
 		},
 	};
 
-	const body = { ...bodyData, thumbnail: thumbnail };
-	const res = await axios.put(`${API_URL}/portfolios/${id}`, body, options);
+	const res = await axios.put(`${API_URL}/portfolios/${id}`, bodyData, options);
 	return res;
 };
 

@@ -13,13 +13,13 @@ function CreatePortfolioForm() {
 	const [images, setImages] = useState<IImageState[]>([]);
 	const navigate = useNavigate();
 	const { handleToastError, handleToastSuccess } = useCustomToast();
-
+	console.log(images);
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
 
 		onSubmit: async values => {
-			const valuesParsed = { ...values, thumbnail: images[0].file };
+			const valuesParsed = { ...values, thumbnail: images[0].data_url };
 			if (!values.thumbnail || values.thumbnail.length < 0)
 				return alert("At least 1 image thumbnail is required");
 
@@ -40,6 +40,7 @@ function CreatePortfolioForm() {
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
+
 			<ImageUploader images={images} setImages={setImages} maxNumber={1} />
 			<Button
 				colorScheme="twitter"
