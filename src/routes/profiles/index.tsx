@@ -1,13 +1,4 @@
-import {
-	Box,
-	Flex,
-	Heading,
-	Avatar,
-	Text,
-	VStack,
-	Link,
-	Badge,
-} from "@chakra-ui/react";
+import { Flex, Heading, Avatar, Text, VStack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import { API_URL } from "../../CONST";

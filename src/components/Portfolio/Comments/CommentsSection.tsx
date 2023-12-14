@@ -13,7 +13,7 @@ interface IProps {
 const CommentsSection: React.FC<IProps> = ({ portfolioId }) => {
 	const [data, setData] = useState<any>(null);
 	const [error, setError] = useState<Error | null>(null);
-	const [showComments, setShowComments] = useState(true);
+	const [showComments] = useState(true);
 	const [refresh, setRefresh] = useState(0);
 
 	const fetchData = useCallback(async () => {
