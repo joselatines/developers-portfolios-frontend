@@ -3,14 +3,15 @@ import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
 import { Link as RouterLink } from "react-router-dom";
 import { Heading, Text, Flex, Link } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import s from "./PortfolioModal.module.css";
 
 function PortfolioModal({ data }: IProps) {
 	const { thumbnail, title, description, User, github_link, website_link, id } =
 		data;
-	console.log(data);
+
 	return (
-		<article className="md:grid grid-cols-3 grid-rows-1 items-start h-[80vh] overflow-auto">
-			<section className="p-8 cols-span-1">
+		<div className={s.container}>
+			<div className={s.info}>
 				<Heading as="h2" size="xl" fontWeight="bold">
 					{title}
 				</Heading>
@@ -32,17 +33,18 @@ function PortfolioModal({ data }: IProps) {
 						)}
 					</Flex>
 				</Flex>
-				<Flex direction="column">
-					<CommentsSection portfolioId={id} />
-				</Flex>
-			</section>
-
-			<img
-				className={`w-full md:col-span-2 object-contain h-[100%] block`}
-				src={thumbnail}
-				alt={`Portfolio ${title} by @${User.githubUsername}`}
-			/>
-		</article>
+			</div>
+			<div className={s.photo}>
+				<img
+					className={`w-full md:col-span-2 object-contain md:h-[100%]`}
+					src={thumbnail}
+					alt={`Portfolio ${title} by @${User.githubUsername}`}
+				/>
+			</div>
+			<div className={`${s.comments} mt-10`}>
+				<CommentsSection portfolioId={id} />
+			</div>
+		</div>
 	);
 }
 

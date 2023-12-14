@@ -25,19 +25,19 @@ function MeRoute() {
 	if (error) return <ErrorHandler errorMessage={error.message} />;
 	if (!profile) return <LoaderHandler />;
 
-	const { githubUsername, email, profilePic, id } = profile.data;
+	const { githubUsername, email, profilePic, id, portfolios } = profile.data;
 
 	return (
 		<>
-			<div className="flex gap-3 justify-end">
+			<div className="flex gap-3 mb-4">
 				<Button colorScheme="whatsapp">
 					<Link to="/profiles/me/portfolios/create">Create new portfolio</Link>
 				</Button>
 			</div>
-			<section className="grid gap-4 my-2">
+			<section className="grid gap-4 my-6">
 				<Avatar name={githubUsername} size="2xl" src={profilePic} />
-				<Heading>{githubUsername}</Heading>
-				<span className="text-lg font-semibold">{email}</span>
+				<Heading size={"md"}>{githubUsername}</Heading>
+				<span className="font-semibold">{email}</span>
 
 				<EditMeProfileForm
 					refreshParent={handleRefresh}
@@ -46,7 +46,7 @@ function MeRoute() {
 				/>
 			</section>
 
-			<PortfoliosSection portfolios={profile.data.portfolios} />
+			<PortfoliosSection portfolios={portfolios} />
 		</>
 	);
 }

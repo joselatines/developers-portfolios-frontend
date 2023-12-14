@@ -1,13 +1,10 @@
-import React, { useCallback, useState, useEffect, useContext } from "react";
-import { Button } from "@chakra-ui/react";
-import { FaEye } from "react-icons/fa";
+import React, { useCallback, useState, useEffect } from "react";
 import { IComment } from "../../../shared/interfaces/comments.interface";
 import Comment from "./Comment";
 import RatePortfolioForm from "../../Forms/RatePortfolioForm";
 import ErrorHandler from "../../shared/Error";
 import LoaderHandler from "../../shared/Loader";
 import { getComments } from "../../../services/comments.service";
-import { AuthContext } from "../../../contexts/auth/AuthContext";
 
 interface IProps {
 	portfolioId: string;
@@ -18,7 +15,6 @@ const CommentsSection: React.FC<IProps> = ({ portfolioId }) => {
 	const [error, setError] = useState<Error | null>(null);
 	const [showComments, setShowComments] = useState(true);
 	const [refresh, setRefresh] = useState(0);
-	const { user } = useContext(AuthContext);
 
 	const fetchData = useCallback(async () => {
 		try {
@@ -40,7 +36,7 @@ const CommentsSection: React.FC<IProps> = ({ portfolioId }) => {
 	if (error) return <ErrorHandler errorMessage={error.message} />;
 	if (!data) return <LoaderHandler />;
 
-	const toggleComments = () => setShowComments(prev => !prev);
+	// const toggleComments = () => setShowComments(prev => !prev);
 
 	return (
 		<>
@@ -49,8 +45,8 @@ const CommentsSection: React.FC<IProps> = ({ portfolioId }) => {
 				refreshParent={handleRefresh}
 			/>
 
-			<span className="text-lg font-bold mt-10">Comment section</span>
-			<section className={showComments ? "h-56 overflow-auto" : "hidden"}>
+			<section className={showComments ? "h-56 overflow-auto mt-7" : "hidden"}>
+				<span className="text-lg font-bold">Comment section</span>
 				<div className="flex flex-col">
 					{data.data.map((comment: IComment) => (
 						<Comment

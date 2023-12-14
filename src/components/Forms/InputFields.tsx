@@ -18,13 +18,12 @@ export interface FormField {
 	label: string;
 	helperText: string;
 	type: "text" | "textarea" | "select" | string;
-	options?: FieldOption[]; 
+	options?: FieldOption[];
 }
-
 
 interface InputFieldsProps {
 	formik: any; // Replace with the actual formik type
-	fields: FormField[]; 
+	fields: FormField[];
 }
 
 // Component to render a set of input fields based on the provided configuration
@@ -61,6 +60,7 @@ function getFieldInput(field: FormField, formik: any) {
 				name={field.name}
 				onChange={formik.handleChange}
 				value={formik.values[field.name]}
+				width="auto"
 			>
 				{field.options.map(option => (
 					<option key={option.value} value={option.value}>
@@ -76,6 +76,7 @@ function getFieldInput(field: FormField, formik: any) {
 				name={field.name}
 				onChange={formik.handleChange}
 				value={formik.values[field.name]}
+				width="auto"
 			/>
 		);
 	} else {
@@ -86,6 +87,7 @@ function getFieldInput(field: FormField, formik: any) {
 				type={field.type}
 				onChange={formik.handleChange}
 				value={formik.values[field.name]}
+				width="auto"
 			/>
 		);
 	}
