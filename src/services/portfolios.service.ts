@@ -2,13 +2,13 @@ import axios, { AxiosResponse } from "axios";
 import { API_URL } from "../CONST";
 import { CreatePortfolio } from "../shared/interfaces/portfolio.interface";
 import { getUserFromLocalStorage } from "../contexts/auth/helper";
-import { convertFileToBase64, getThumbnail } from "../shared/utils/base64";
+import { AUTH_MSG } from "./config";
 
 export const createPortfolio = async (
 	bodyData: CreatePortfolio
 ): Promise<AxiosResponse> => {
 	const user = getUserFromLocalStorage();
-	if (!user) throw new Error("User in localStorage was not found");
+	if (!user) throw new Error(AUTH_MSG);
 
 	// const imageBase64 = await convertFileToBase64(bodyData.thumbnail as File);
 
@@ -30,7 +30,7 @@ export const editPortfolio = async (
 	id: string
 ): Promise<AxiosResponse> => {
 	const user = getUserFromLocalStorage();
-	if (!user) throw new Error("User in localStorage was not found");
+	if (!user) throw new Error(AUTH_MSG);
 
 	const options = {
 		headers: {
@@ -46,7 +46,7 @@ export const editPortfolio = async (
 export const deletePortfolio = async (id: string): Promise<AxiosResponse> => {
 	const user = getUserFromLocalStorage();
 
-	if (!user) throw new Error("User in localStorage was not found");
+	if (!user) throw new Error(AUTH_MSG);
 
 	const options = {
 		headers: { Authorization: `Bearer ${user.token}` },

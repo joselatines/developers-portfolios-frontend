@@ -1,37 +1,29 @@
 import { useState, useCallback } from "react";
 import { Heading, Avatar, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import EditMeProfileForm from "../components/Forms/Me/EditMeProfileForm";
-import { useFetchWithJWT } from "../hooks/useFetchWithJWT";
-import { API_URL } from "../CONST";
-import ErrorHandler from "../components/shared/Error";
-import LoaderHandler from "../components/shared/Loader";
-import PortfoliosSection from "../components/Portfolio/PortfoliosSection";
+import EditMeProfileForm from "../../components/Forms/Me/EditMeProfileForm";
+import { useFetchWithJWT } from "../../hooks/useFetchWithJWT";
+import { API_URL } from "../../CONST";
+import ErrorHandler from "../../components/shared/Error";
+import LoaderHandler from "../../components/shared/Loader";
+import PortfoliosSection from "../../components/Portfolio/PortfoliosSection";
 
 function MeRoute() {
 	const {
 		data: profile,
-		error: profileError,
+		error,
 		refetch: refetchProfile,
-	} = useFetchWithJWT(`${API_URL}/users/me`);
-	const {
-		data: portfolios,
-		error: portfolioError,
-		refetch: refetchPortfolios,
-	} = useFetchWithJWT(`${API_URL}/portfolios/me`);
+	} = useFetchWithJWT(`${API_URL}/profiles/me`);
 
 	const [refresh, setRefresh] = useState(0);
 
 	const handleRefresh = useCallback(() => {
 		setRefresh(prev => prev + 1);
 		refetchProfile();
-		refetchPortfolios();
 	}, [refresh]);
 
-	const errorMessage = profileError?.message || portfolioError?.message;
-
-	if (errorMessage) return <ErrorHandler errorMessage={errorMessage} />;
-	if (!profile || !portfolios) return <LoaderHandler />;
+	if (error) return <ErrorHandler errorMessage={error.message} />;
+	if (!profile) return <LoaderHandler />;
 
 	const { githubUsername, email, profilePic, id } = profile.data;
 
@@ -39,7 +31,7 @@ function MeRoute() {
 		<>
 			<div className="flex gap-3 justify-end">
 				<Button colorScheme="whatsapp">
-					<Link to="/me/portfolios/create">Create new portfolio</Link>
+					<Link to="/profiles/me/portfolios/create">Create new portfolio</Link>
 				</Button>
 			</div>
 			<section className="grid gap-4 my-2">
@@ -54,7 +46,7 @@ function MeRoute() {
 				/>
 			</section>
 
-			<PortfoliosSection portfolios={portfolios.data} />
+			<PortfoliosSection portfolios={profile.data.portfolios} />
 		</>
 	);
 }

@@ -30,7 +30,7 @@ function CreatePortfolioForm() {
 					return handleToastError(res.data.message, "Creating portfolio");
 
 				handleToastSuccess(res.data.message, "Creating portfolio");
-				navigate("/me");
+				navigate("/profiles/me");
 			} catch (error: any) {
 				handleToastError(error.message);
 			}

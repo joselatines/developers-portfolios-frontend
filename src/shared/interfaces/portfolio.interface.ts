@@ -23,6 +23,6 @@ export interface IPortfolio extends CreatePortfolio {
 	created_by: string; // user id
 	title: string;
 	User: IUser;
-	avg_rating: number;
+	avgRating: number;
 	thumbnail: string;
 }

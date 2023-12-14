@@ -4,31 +4,19 @@ import {
 	Flex,
 	Avatar,
 	HStack,
-	IconButton,
 	Button,
 	Menu,
 	MenuButton,
 	MenuList,
 	MenuItem,
 	MenuDivider,
-	useDisclosure,
-	Stack,
+	Link,
 	useToast,
 } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link as RouterLInk, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/auth/AuthContext";
 
-interface IProps {
-	links: LinkElement[] | null;
-}
-
-interface LinkElement {
-	label: string;
-	url: string;
-}
-
-export default function Navigation({ links }: IProps) {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+export default function Navigation() {
 	const { user, setUser } = useContext(AuthContext);
 	const toast = useToast();
 	const navigate = useNavigate();
@@ -41,10 +29,10 @@ export default function Navigation({ links }: IProps) {
 	useEffect(() => {
 		toast({
 			title: "Warning",
+			status: "warning",
 			description:
 				"This website is currently on a free plan, so it may take longer to load on the first visit.",
 			isClosable: true,
-			position: "top",
 			colorScheme: "orange",
 		});
 	}, []);
@@ -59,19 +47,17 @@ export default function Navigation({ links }: IProps) {
 			zIndex={1000}
 		>
 			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-				<IconButton
-					size={"md"}
-					aria-label={"Open Menu"}
-					display={{ md: "none" }}
-					onClick={isOpen ? onClose : onOpen}
-				/>
 				<HStack spacing={8} alignItems={"center"}>
 					<Box className="text-xl font-bold">
-						<Link to="/">Developers Portfolio</Link>
+						<Link
+							textDecorationLine={"none"}
+							as={RouterLInk}
+							fontSize={{ base: "sm", sm: "md" }}
+							to="/"
+						>
+							Developers Portfolio
+						</Link>
 					</Box>
-					<HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
-						{links && <LinksComponent links={links} />}
-					</HStack>
 				</HStack>
 				<Flex color={"black"} alignItems={"center"}>
 					{user ? (
@@ -81,14 +67,6 @@ export default function Navigation({ links }: IProps) {
 					)}
 				</Flex>
 			</Flex>
-
-			{isOpen ? (
-				<Box pb={4} display={{ md: "none" }}>
-					<Stack as={"nav"} spacing={4}>
-						{links && <LinksComponent links={links} />}
-					</Stack>
-				</Box>
-			) : null}
 		</Box>
 	);
 }
@@ -107,7 +85,7 @@ function ProfileMenu({ handleLogout, user }: any) {
 			</MenuButton>
 
 			<MenuList>
-				<Link to="/me">
+				<Link as={RouterLInk} to="/profiles/me">
 					<MenuItem>Me</MenuItem>
 				</Link>
 
@@ -122,36 +100,13 @@ function AnonymousMenu() {
 	return (
 		<Flex alignItems={"center"} gap={3}>
 			<Menu>
-				<Link to="/auth/login">
-					<Button>Login</Button>
+				<Link as={RouterLInk} to="/auth/login">
+					<Button size={{ base: "sm", md: "md" }}>Login</Button>
 				</Link>
-				<Link to="/auth/signup">
-					<Button>Sign up</Button>
+				<Link as={RouterLInk} to="/auth/signup">
+					<Button size={{ base: "sm", sm: "md" }}>Sign up</Button>
 				</Link>
 			</Menu>
 		</Flex>
-	);
-}
-
-function LinksComponent({ links }: { links: LinkElement[] }) {
-	return (
-		<>
-			{links.map(link => (
-				<Box
-					key={link.url}
-					as={Link}
-					px={2}
-					py={1}
-					rounded={"md"}
-					_hover={{
-						textDecoration: "none",
-						bg: "gray.700",
-					}}
-					to={link.url}
-				>
-					{link.label}
-				</Box>
-			))}
-		</>
 	);
 }

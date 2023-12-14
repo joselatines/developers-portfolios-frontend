@@ -1,50 +1,44 @@
-import { BsGithub } from "react-icons/bs";
-import { AiOutlineLink } from "react-icons/ai";
 import CommentsSection from "./Comments/CommentsSection";
 import { IPortfolio } from "../../shared/interfaces/portfolio.interface";
+import { Link as RouterLink } from "react-router-dom";
+import { Heading, Text, Flex, Link } from "@chakra-ui/react";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 function PortfolioModal({ data }: IProps) {
 	const { thumbnail, title, description, User, github_link, website_link, id } =
 		data;
-
+	console.log(data);
 	return (
-		<article className="md:grid grid-cols-3 h-[80vh] overflow-auto">
+		<article className="md:grid grid-cols-3 grid-rows-1 items-start h-[80vh] overflow-auto">
 			<section className="p-8 cols-span-1">
-				<h2 className="text-2xl font-bold">{title}</h2>
-				<p className="mb-4 mt-5">{description}</p>
-				<ul>
-					<li className="mb-3">
-						{/* <Link to={`/profiles/${User.githubUsername}`}>
-							Created by: {User.githubUsername}
-						</Link> */}
-						Created by:{" "}
-						<a
-							href={`https://github.com/${User.githubUsername}`}
-							target="_blank"
-						>
-							{User.githubUsername}
-						</a>
-					</li>
-					<li className="inline-block">
-						<a href={website_link} target="_blank">
-							<AiOutlineLink size={32} />
-						</a>
-					</li>
-					{github_link && (
-						<li>
-							<a target="_blank" className="inline-block" href={github_link}>
-								<BsGithub size={32} />
-							</a>
-						</li>
-					)}
-				</ul>
-				<section className="mt-7 flex flex-col">
+				<Heading as="h2" size="xl" fontWeight="bold">
+					{title}
+				</Heading>
+				<Link as={RouterLink} fontSize={"sm"} to={`/profiles/${User.id}`}>
+					@{User.githubUsername}
+				</Link>
+				<Text mt={5} mb={4}>
+					{description}
+				</Text>
+				<Flex direction="column" mb={5}>
+					<Flex mt={3} fontSize={"sm"} align="center" gap={5}>
+						<Link href={website_link} isExternal>
+							See website <ExternalLinkIcon mx="2px" />
+						</Link>
+						{github_link && (
+							<Link href={github_link} isExternal>
+								See code <ExternalLinkIcon mx="2px" />
+							</Link>
+						)}
+					</Flex>
+				</Flex>
+				<Flex direction="column">
 					<CommentsSection portfolioId={id} />
-				</section>
+				</Flex>
 			</section>
 
 			<img
-				className={`w-full col-span-2 object-contain h-[100%] hidden md:block`}
+				className={`w-full md:col-span-2 object-contain h-[100%] block`}
 				src={thumbnail}
 				alt={`Portfolio ${title} by @${User.githubUsername}`}
 			/>

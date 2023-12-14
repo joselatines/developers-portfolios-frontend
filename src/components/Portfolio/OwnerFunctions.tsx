@@ -21,7 +21,7 @@ function OwnerFunctions({ portfolioId }: { portfolioId: string }) {
 			}
 
 			handleToastSuccess(res.data.message, "Portfolio");
-			navigate('/me')
+			navigate("/profiles/me");
 		} catch (error: any) {
 			handleToastError(error.message);
 		} finally {
@@ -30,7 +30,7 @@ function OwnerFunctions({ portfolioId }: { portfolioId: string }) {
 	};
 	return (
 		<div className="flex gap-3 justify-end">
-			<Link to={`/me/portfolios/edit/${portfolioId}`}>
+			<Link to={`/profiles/me/portfolios/edit/${portfolioId}`}>
 				<Button size="sm">
 					<FaRegEdit />
 				</Button>

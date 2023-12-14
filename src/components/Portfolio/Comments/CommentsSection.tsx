@@ -44,22 +44,12 @@ const CommentsSection: React.FC<IProps> = ({ portfolioId }) => {
 
 	return (
 		<>
-			{user?.token && (
-				<RatePortfolioForm
-					portfolioId={portfolioId}
-					refreshParent={handleRefresh}
-				/>
-			)}
+			<RatePortfolioForm
+				portfolioId={portfolioId}
+				refreshParent={handleRefresh}
+			/>
 
-			<Button
-				className="mb-6 mt-8 center flex gap-1"
-				colorScheme="teal"
-				onClick={toggleComments}
-			>
-				<FaEye /> {showComments ? "Hide comments" : "Show comments"}
-			</Button>
-
-			<span className="text-lg font-bold">Comment section</span>
+			<span className="text-lg font-bold mt-10">Comment section</span>
 			<section className={showComments ? "h-56 overflow-auto" : "hidden"}>
 				<div className="flex flex-col">
 					{data.data.map((comment: IComment) => (

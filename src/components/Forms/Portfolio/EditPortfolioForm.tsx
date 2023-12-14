@@ -26,7 +26,7 @@ function EditPortfolioForm({ initialValues, portfolioId }: IProps) {
 				handleToastError(res.data.message, "Portfolio");
 			} else {
 				handleToastSuccess(res.data.message);
-				navigate("/me");
+				navigate("/profiles/me");
 			}
 		} catch (error: any) {
 			console.error(error);
