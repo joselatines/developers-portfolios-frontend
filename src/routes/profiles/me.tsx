@@ -22,7 +22,7 @@ function MeRoute() {
 		refetchProfile();
 	}, [refresh]);
 
-	if (error) return <ErrorHandler errorMessage={error.message} />;
+	if (error) return <ErrorHandler err={error} />;
 	if (!profile) return <LoaderHandler />;
 
 	const { githubUsername, email, profilePic, id, portfolios } = profile.data;

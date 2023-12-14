@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
-import { getUserFromLocalStorage } from "../contexts/auth/helper";
+import { getValueFromLocalStorage } from "../contexts/auth/helper";
+import { TOKEN_KEY_LOCAL_STORAGE } from "../CONST";
 
 // Define the state shape
 interface State {
@@ -12,18 +13,18 @@ export const useFetchWithJWT = (url: string, options?: RequestInit) => {
 	// Initialize state to hold res and error
 	const [res, setResponse] = useState<State>({});
 
-	// Get user information from local storage
-	const user = getUserFromLocalStorage();
+	// Get token information from local storage
+	const token = getValueFromLocalStorage(TOKEN_KEY_LOCAL_STORAGE);
 
 	// Function to fetch data from the specified URL
 	const fetchData = useCallback(async () => {
 		try {
-			// Check if user information is available
-			if (!user) throw new Error("User is not present in localStorage");
+			// Check if token information is available
+			if (!token) throw new Error("token is not present in localStorage");
 
 			// Set up headers with JWT token
 			const config = {
-				headers: { Authorization: `Bearer ${user.token}` },
+				headers: { Authorization: `Bearer ${token}` },
 			};
 
 			// Fetch data from the API
@@ -41,7 +42,7 @@ export const useFetchWithJWT = (url: string, options?: RequestInit) => {
 			// If there's an error, update the state with the error
 			setResponse({ error });
 		}
-	}, [url, user?.token, options]);
+	}, [url, token, options]);
 
 	// Effect to fetch data when the component mounts or when dependencies change
 	useEffect(() => {

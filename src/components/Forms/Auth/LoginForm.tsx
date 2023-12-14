@@ -10,7 +10,7 @@ import useCustomToast from "../../../hooks/useCustomToast";
 
 function LoginForm() {
 	const { validationSchema, initialValues, fields } = loginConfig;
-	const { setUser } = useContext(AuthContext);
+	const { setUser, setToken } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const { handleToastSuccess, handleToastError } = useCustomToast();
 
@@ -27,8 +27,9 @@ function LoginForm() {
 					return handleToastError(res.data.message, "Authentication");
 				}
 
+				setUser(res.data.data.user);
+				setToken(res.data.data.token);
 				handleToastSuccess(res.data.message, "Authentication");
-				setUser(res.data.data);
 
 				navigate("/");
 			} catch (error: any) {

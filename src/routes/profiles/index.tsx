@@ -10,7 +10,7 @@ function UserProfile() {
 	const { id } = useParams();
 	const { data, error } = useFetch(`${API_URL}/profiles/${id}`);
 
-	if (error) return <ErrorHandler errorMessage={error.message} />;
+	if (error) return <ErrorHandler err={error} />;
 	if (!data) return <LoaderHandler />;
 
 	const { githubUsername, email, profilePic, portfolios } = data.data;

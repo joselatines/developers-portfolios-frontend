@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import { API_URL } from "../CONST";
-import { getUserFromLocalStorage } from "../contexts/auth/helper";
+import { API_URL, TOKEN_KEY_LOCAL_STORAGE } from "../CONST";
+import { getValueFromLocalStorage } from "../contexts/auth/helper";
 
 export const deleteComment = async (
 	commentId: string
@@ -11,9 +11,9 @@ export const deleteComment = async (
 export const getComments = async (
 	portfolioId: string
 ): Promise<AxiosResponse> => {
-	const user = getUserFromLocalStorage();
+	const token = getValueFromLocalStorage(TOKEN_KEY_LOCAL_STORAGE);
 
-	if (!user) {
+	if (!token) {
 		const res = await axios.get(
 			`${API_URL}/portfolios/comments/${portfolioId}`
 		);
@@ -22,7 +22,7 @@ export const getComments = async (
 	}
 
 	const options = {
-		headers: { Authorization: `Bearer ${user.token}` },
+		headers: { Authorization: `Bearer ${token}` },
 	};
 
 	const res = await axios.get(

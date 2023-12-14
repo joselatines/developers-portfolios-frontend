@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function HomeRoute() {
 	const { data, error } = useFetch(`${API_URL}/portfolios`);
 
-	if (error) return <ErrorHandler errorMessage={error.message} />;
+	if (error) return <ErrorHandler err={error} />;
 	if (!data) return <LoaderHandler />;
 
 	return (

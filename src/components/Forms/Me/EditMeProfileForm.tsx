@@ -4,10 +4,13 @@ import { formikConfig } from "./config";
 import InputFields from "../InputFields";
 import { editUser } from "../../../services/users.service";
 import useCustomToast from "../../../hooks/useCustomToast";
+import { useContext } from "react";
+import { AuthContext } from "../../../contexts/auth/AuthContext";
 
 function EditMeProfileForm({ refreshParent, initialValues, userId }: IProps) {
 	const { handleToastSuccess, handleToastError } = useCustomToast();
 	const { validationSchema, fields } = formikConfig;
+	const { setUser } = useContext(AuthContext);
 
 	const formik = useFormik({
 		initialValues,
@@ -20,6 +23,7 @@ function EditMeProfileForm({ refreshParent, initialValues, userId }: IProps) {
 					return handleToastError(res.data.message, "Editing info");
 
 				handleToastSuccess(res.data.message, "Editing info");
+				setUser(res.data.data);
 				refreshParent();
 			} catch (error: any) {
 				handleToastError(error.message);

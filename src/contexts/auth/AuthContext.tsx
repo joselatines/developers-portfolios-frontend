@@ -1,22 +1,27 @@
 import { createContext, useState } from "react";
 import { IAuthProviderProps, IAuthContext, IUserContext } from "./types";
-import { getUserFromLocalStorage, saveUserToLocalStorage } from "./helper";
-import { USER_KEY_LOCAL_STORAGE } from "../../CONST";
+import { getValueFromLocalStorage, saveInLocalStorage } from "./helper";
+import { TOKEN_KEY_LOCAL_STORAGE, USER_KEY_LOCAL_STORAGE } from "../../CONST";
 
 const AuthContext = createContext<IAuthContext>({
 	user: null,
 	setUser: () => {},
+	setToken: () => {},
+	token: null,
 });
 
 const AuthProvider = ({ children }: IAuthProviderProps) => {
 	const [user, setUser] = useState<IUserContext | null>(
-		getUserFromLocalStorage()
+		getValueFromLocalStorage(USER_KEY_LOCAL_STORAGE)
+	);
+	const [token, setToken] = useState<string | null>(
+		getValueFromLocalStorage(TOKEN_KEY_LOCAL_STORAGE)
 	);
 
 	const handleSetUser = (value: IUserContext | null) => {
 		if (value) {
 			console.info("data saved in localStorage and context");
-			saveUserToLocalStorage(value);
+			saveInLocalStorage(USER_KEY_LOCAL_STORAGE, value);
 		} else {
 			localStorage.removeItem(USER_KEY_LOCAL_STORAGE);
 			console.info("data removed in localStorage and context");
@@ -24,8 +29,21 @@ const AuthProvider = ({ children }: IAuthProviderProps) => {
 		setUser(value);
 	};
 
+	const handleSetToken = (value: string | null) => {
+		if (value) {
+			console.info("data saved in localStorage and context");
+			saveInLocalStorage(TOKEN_KEY_LOCAL_STORAGE, value);
+		} else {
+			localStorage.removeItem(TOKEN_KEY_LOCAL_STORAGE);
+			console.info("data removed in localStorage and context");
+		}
+		setToken(value);
+	};
+
 	return (
-		<AuthContext.Provider value={{ user, setUser: handleSetUser }}>
+		<AuthContext.Provider
+			value={{ user, setUser: handleSetUser, token, setToken: handleSetToken }}
+		>
 			{children}
 		</AuthContext.Provider>
 	);

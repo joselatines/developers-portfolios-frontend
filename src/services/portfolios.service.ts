@@ -1,20 +1,20 @@
 import axios, { AxiosResponse } from "axios";
-import { API_URL } from "../CONST";
+import { API_URL, TOKEN_KEY_LOCAL_STORAGE } from "../CONST";
 import { CreatePortfolio } from "../shared/interfaces/portfolio.interface";
-import { getUserFromLocalStorage } from "../contexts/auth/helper";
+import { getValueFromLocalStorage } from "../contexts/auth/helper";
 import { AUTH_MSG } from "./config";
 
 export const createPortfolio = async (
 	bodyData: CreatePortfolio
 ): Promise<AxiosResponse> => {
-	const user = getUserFromLocalStorage();
-	if (!user) throw new Error(AUTH_MSG);
+	const token = getValueFromLocalStorage(TOKEN_KEY_LOCAL_STORAGE);
+	if (!token) throw new Error(AUTH_MSG);
 
 	// const imageBase64 = await convertFileToBase64(bodyData.thumbnail as File);
 
 	const options = {
 		headers: {
-			Authorization: `Bearer ${user.token}`,
+			Authorization: `Bearer ${token}`,
 			"Content-Type": "multipart/form-data",
 		},
 	};
@@ -29,12 +29,12 @@ export const editPortfolio = async (
 	bodyData: Partial<CreatePortfolio>,
 	id: string
 ): Promise<AxiosResponse> => {
-	const user = getUserFromLocalStorage();
-	if (!user) throw new Error(AUTH_MSG);
+	const token = getValueFromLocalStorage(TOKEN_KEY_LOCAL_STORAGE);
+	if (!token) throw new Error(AUTH_MSG);
 
 	const options = {
 		headers: {
-			Authorization: `Bearer ${user.token}`,
+			Authorization: `Bearer ${token}`,
 			"Content-Type": "multipart/form-data",
 		},
 	};
@@ -44,12 +44,12 @@ export const editPortfolio = async (
 };
 
 export const deletePortfolio = async (id: string): Promise<AxiosResponse> => {
-	const user = getUserFromLocalStorage();
+	const token = getValueFromLocalStorage(TOKEN_KEY_LOCAL_STORAGE);
 
-	if (!user) throw new Error(AUTH_MSG);
+	if (!token) throw new Error(AUTH_MSG);
 
 	const options = {
-		headers: { Authorization: `Bearer ${user.token}` },
+		headers: { Authorization: `Bearer ${token}` },
 	};
 
 	const res = await axios.delete(`${API_URL}/portfolios/${id}`, options);

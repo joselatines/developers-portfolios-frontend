@@ -17,12 +17,13 @@ import { Link as RouterLInk, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/auth/AuthContext";
 
 export default function Navigation() {
-	const { user, setUser } = useContext(AuthContext);
+	const { user, setUser, setToken } = useContext(AuthContext);
 	const toast = useToast();
 	const navigate = useNavigate();
 
 	const handleLogout = () => {
 		setUser(null);
+		setToken(null);
 		navigate("/");
 	};
 

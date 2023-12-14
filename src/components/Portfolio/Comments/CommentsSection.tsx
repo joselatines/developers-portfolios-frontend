@@ -33,7 +33,7 @@ const CommentsSection: React.FC<IProps> = ({ portfolioId }) => {
 		setRefresh(prev => prev + 1);
 	}, []);
 
-	if (error) return <ErrorHandler errorMessage={error.message} />;
+	if (error) return <ErrorHandler err={error} />;
 	if (!data) return <LoaderHandler />;
 
 	// const toggleComments = () => setShowComments(prev => !prev);

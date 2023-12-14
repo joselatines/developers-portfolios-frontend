@@ -21,6 +21,8 @@ export interface IUserContext {
 export interface IAuthContext {
 	user: IUserContext | null;
 	setUser: (value: IUserContext | null) => void;
+	token: string | null;
+	setToken: (value: string | null) => void;
 }
 
 export interface IAuthProviderProps {

@@ -1,11 +1,8 @@
-import { USER_KEY_LOCAL_STORAGE } from "../../CONST";
-import { IUserContext } from "./types";
+export const saveInLocalStorage = (key: string, value: any) =>
+	localStorage.setItem(key, JSON.stringify(value));
 
-export const saveUserToLocalStorage = (user: IUserContext) =>
-	localStorage.setItem(USER_KEY_LOCAL_STORAGE, JSON.stringify(user));
-
-export const getUserFromLocalStorage = (): IUserContext | null => {
-	const userString = localStorage.getItem(USER_KEY_LOCAL_STORAGE);
+export const getValueFromLocalStorage = (key: string): any | null => {
+	const userString = localStorage.getItem(key);
 	if (userString) {
 		return JSON.parse(userString);
 	}
