@@ -15,6 +15,7 @@ import { AuthProvider } from "./contexts/auth/AuthContext";
 import SignUpRoute from "./routes/auth/signup";
 import UserProfile from "./routes/profiles";
 import PortfolioEditRoute from "./routes/portfolios/edit";
+import NotFound from "./routes/404";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
@@ -23,6 +24,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 				<Router>
 					<Routes>
 						<Route element={<Root />} path="/">
+							<Route element={<NotFound />} path="*" />
+
 							<Route element={<HomeRoute />} path="/" />
 
 							<Route element={<PrivateRoutes />}>
