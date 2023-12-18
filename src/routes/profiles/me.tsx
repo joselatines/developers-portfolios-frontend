@@ -16,6 +16,7 @@ function MeRoute() {
 	} = useFetchWithJWT(`${API_URL}/profiles/me`);
 
 	const [refresh, setRefresh] = useState(0);
+	const [showEditForm, setShowEditForm] = useState(false);
 
 	const handleRefresh = useCallback(() => {
 		setRefresh(prev => prev + 1);
@@ -30,20 +31,31 @@ function MeRoute() {
 	return (
 		<>
 			<div className="flex gap-3 mb-4">
-				<Button colorScheme="whatsapp">
-					<Link to="/profiles/me/portfolios/create">Create new portfolio</Link>
-				</Button>
+				<Link to="/profiles/me/portfolios/create">
+					<Button colorScheme="whatsapp">Create new portfolio</Button>
+				</Link>
 			</div>
 			<section className="grid gap-4 my-6">
 				<Avatar name={githubUsername} size="2xl" src={profilePic} />
 				<Heading size={"md"}>{githubUsername}</Heading>
 				<span className="font-semibold">{email}</span>
 
-				<EditMeProfileForm
-					refreshParent={handleRefresh}
-					initialValues={{ githubUsername, profilePic }}
-					userId={id}
-				/>
+				{showEditForm ? (
+					<>
+						<Button onClick={() => setShowEditForm(false)}>
+							No edit profile data
+						</Button>
+						<EditMeProfileForm
+							refreshParent={handleRefresh}
+							initialValues={{ githubUsername, profilePic }}
+							userId={id}
+						/>
+					</>
+				) : (
+					<Button onClick={() => setShowEditForm(true)}>
+						Edit profile data
+					</Button>
+				)}
 			</section>
 
 			<PortfoliosSection portfolios={portfolios} />

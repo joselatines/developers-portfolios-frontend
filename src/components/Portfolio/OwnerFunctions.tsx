@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@chakra-ui/react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { deletePortfolio } from "../../services/portfolios.service";
@@ -8,7 +8,7 @@ import useCustomToast from "../../hooks/useCustomToast";
 
 function OwnerFunctions({ portfolioId }: { portfolioId: string }) {
 	const { handleToastSuccess, handleToastError } = useCustomToast();
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleDelete = async (portfolioId: string) => {
@@ -21,7 +21,7 @@ function OwnerFunctions({ portfolioId }: { portfolioId: string }) {
 			}
 
 			handleToastSuccess(res.data.message, "Portfolio");
-			navigate(0);
+			location.reload();
 		} catch (error: any) {
 			handleToastError(error.message);
 		} finally {

@@ -41,7 +41,7 @@ function EditMeProfileForm({ refreshParent, initialValues, userId }: IProps) {
 				colorScheme="twitter"
 				type="submit"
 			>
-				Edit profile data
+				Save profile data
 			</Button>
 		</form>
 	);
