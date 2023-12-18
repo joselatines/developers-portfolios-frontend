@@ -7,6 +7,7 @@ import InputFields from "../InputFields";
 import { loginWithEmail } from "../../../services/auth.service";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
 import useCustomToast from "../../../hooks/useCustomToast";
+import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
 
 function LoginForm() {
 	const { validationSchema, initialValues, fields } = loginConfig;
@@ -17,7 +18,6 @@ function LoginForm() {
 	const formik = useFormik({
 		initialValues,
 		validationSchema,
-
 		onSubmit: async values => {
 			try {
 				const res = await loginWithEmail(values);
@@ -38,6 +38,32 @@ function LoginForm() {
 		},
 	});
 
+	const handleGitHubLogin = async () => {
+		const auth = getAuth();
+		const provider = new GithubAuthProvider();
+
+		try {
+			const result = await signInWithPopup(auth, provider);
+
+			// This gives you a GitHub Access Token. You can use it to access the GitHub API.
+			const credential = GithubAuthProvider.credentialFromResult(result);
+
+			if (!credential) throw new Error("Credentials is not presented");
+
+			const token = credential.accessToken;
+
+			// The signed-in user info.
+			const user = result.user;
+			// IdP data available using getAdditionalUserInfo(result)
+			// ...
+			console.log(token, user);
+			// Handle GitHub login success, e.g., update UI or perform additional actions.
+		} catch (error: any) {
+			// Handle GitHub login failure, e.g., display an error message.
+			console.error(error);
+		}
+	};
+
 	return (
 		<form onSubmit={formik.handleSubmit}>
 			<InputFields formik={formik} fields={fields} />
@@ -50,6 +76,16 @@ function LoginForm() {
 				type="submit"
 			>
 				Login
+			</Button>
+
+			<Button
+				mt={4}
+				colorScheme="gray"
+				onClick={handleGitHubLogin}
+				isLoading={formik.isSubmitting}
+				loadingText="Logging with GitHub, please wait"
+			>
+				Login with GitHub
 			</Button>
 		</form>
 	);

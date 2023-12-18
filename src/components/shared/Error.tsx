@@ -1,6 +1,6 @@
 function ErrorHandler({ err }: { err: Error }) {
-	console.error("Error while rendering");
-	console.error(err);
+	console.error(`💀: Error while rendering ${err}`);
+
 	return <div>Error: {err.message}</div>;
 }
 

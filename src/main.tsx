@@ -17,6 +17,16 @@ import UserProfile from "./routes/profiles";
 import PortfolioEditRoute from "./routes/portfolios/edit";
 import NotFound from "./routes/404";
 
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+	apiKey: "AIzaSyA5iEFxJGTDRxlwZydahXSy5Ouz5O98eOw",
+	authDomain: "https://developers-portfolios.firebaseapp.com/__/auth/handler",
+	projectId: "developers-portfolios",
+};
+
+initializeApp(firebaseConfig);
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
 		<ChakraProvider>
