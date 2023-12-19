@@ -19,7 +19,14 @@ const useCustomToast = () => {
 		});
 	};
 
-	return { handleToastSuccess, handleToastError };
+	const handleToastInfo = (message: string, title = "Information") => {
+		toast({
+			title: title,
+			description: message,
+		});
+	};
+
+	return { handleToastSuccess, handleToastError, handleToastInfo };
 };
 
 export default useCustomToast;

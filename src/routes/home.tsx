@@ -17,7 +17,9 @@ function HomeRoute() {
 			<Link to="/profiles/me/portfolios/create">
 				<Button colorScheme="whatsapp">Create new portfolio</Button>
 			</Link>
-			<PortfoliosSection portfolios={data.data} />
+			<div className="mt-4">
+				<PortfoliosSection portfolios={data.data} />
+			</div>
 		</>
 	);
 }

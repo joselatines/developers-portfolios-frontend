@@ -5,7 +5,7 @@ export default function Root() {
 	return (
 		<>
 			<Navigation />
-			<main className="pt-24 p-10">
+			<main className="pt-20 p-10">
 				<Outlet />
 			</main>
 		</>

@@ -13,7 +13,8 @@ function LoginForm() {
 	const { validationSchema, initialValues, fields } = loginConfig;
 	const { setUser, setToken } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const { handleToastSuccess, handleToastError } = useCustomToast();
+	const { handleToastSuccess, handleToastError, handleToastInfo } =
+		useCustomToast();
 
 	const formik = useFormik({
 		initialValues,
@@ -39,7 +40,9 @@ function LoginForm() {
 	});
 
 	const handleGitHubLogin = async () => {
-		const auth = getAuth();
+		handleToastInfo("This option is temporary disabled");
+
+		/* const auth = getAuth();
 		const provider = new GithubAuthProvider();
 
 		try {
@@ -56,38 +59,39 @@ function LoginForm() {
 			const user = result.user;
 			// IdP data available using getAdditionalUserInfo(result)
 			// ...
-			console.log(token, user);
+
 			// Handle GitHub login success, e.g., update UI or perform additional actions.
 		} catch (error: any) {
 			// Handle GitHub login failure, e.g., display an error message.
 			console.error(error);
-		}
+		} */
 	};
 
 	return (
-		<form onSubmit={formik.handleSubmit}>
-			<InputFields formik={formik} fields={fields} />
+		<div>
+			<form onSubmit={formik.handleSubmit}>
+				<InputFields formik={formik} fields={fields} />
 
-			<Button
-				disabled={formik.isSubmitting}
-				isLoading={formik.isSubmitting}
-				loadingText="Logging, please wait"
-				colorScheme="twitter"
-				type="submit"
-			>
-				Login
-			</Button>
-
+				<Button
+					disabled={formik.isSubmitting}
+					isLoading={formik.isSubmitting}
+					loadingText="Logging, please wait"
+					colorScheme="twitter"
+					type="submit"
+				>
+					Login
+				</Button>
+			</form>
 			<Button
 				mt={4}
 				colorScheme="gray"
 				onClick={handleGitHubLogin}
-				isLoading={formik.isSubmitting}
+				/* isLoading={formik.isSubmitting} */
 				loadingText="Logging with GitHub, please wait"
 			>
 				Login with GitHub
 			</Button>
-		</form>
+		</div>
 	);
 }
 
