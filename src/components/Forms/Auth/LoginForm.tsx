@@ -7,7 +7,6 @@ import InputFields from "../InputFields";
 import { loginWithEmail } from "../../../services/auth.service";
 import { AuthContext } from "../../../contexts/auth/AuthContext";
 import useCustomToast from "../../../hooks/useCustomToast";
-import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
 
 function LoginForm() {
 	const { validationSchema, initialValues, fields } = loginConfig;
@@ -41,7 +40,7 @@ function LoginForm() {
 
 	const handleGitHubLogin = async () => {
 		handleToastInfo("This option is temporary disabled");
-
+		return
 		/* const auth = getAuth();
 		const provider = new GithubAuthProvider();
 
